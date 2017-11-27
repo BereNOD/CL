@@ -1,0 +1,28 @@
+.cart-tabs {
+    &__wrap {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+    &__title {
+        @extend .std-btn-inverse;
+        width: 230px;
+        margin-right: 30px;
+        line-height: 50px;
+        transition: color $color-time, border-color $color-time, background-color $color-time;
+        cursor: pointer;
+        &:last-child {
+            margin-right: 0;
+        }
+        &:hover,&:focus,&--active {
+            background-color: #f4f4f4;
+            color: $main-color;
+            border-color: #f4f4f4;
+        }
+    }
+    &__content {
+        background-color: #f4f4f4;
+        border-radius: 3px;
+        padding: 30px 30px 50px 30px;
+    }
+}

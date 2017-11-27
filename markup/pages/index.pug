@@ -1,0 +1,54 @@
+doctype html
+html(class="no-js", lang="ru")
+
+    //- include head
+    include ../components/head/head
+
+    //- include _global-modules
+    include ../components/_modules/_global/header/header
+    include ../components/_modules/_global/footer/footer
+    include ../components/_modules/_global/popup-login/popup-login
+    include ../components/_modules/_global/top-line/top-line
+    include ../components/_modules/_global/cart-fav-blocks/cart-fav-block
+    include ../components/_modules/_global/online-support/online-support
+
+    //- include _situations-modules
+    include ../components/_modules/_other-parts/rating/rating
+    include ../components/_modules/_other-parts/count/count
+    include ../components/_modules/_other-parts/main-product-slider/main-product-slider
+
+    //- include page-template
+    include ../components/_pages/main-page/main-page
+
+    head
+        +head(head.defaults)
+
+    body.page.page--main
+        |%=symbols=%
+
+        +top-line
+        //header
+        +header
+        +g-block
+
+        section.page__wrapper
+
+            //page
+            +main-page
+
+        +online-support
+        //footer
+        +footer
+
+        script(src='%=static=%js/separate-js/svg4everybody.min.js')
+        script svg4everybody();
+
+        //- Main scripts. You can replace it, but I recommend you to leave it here
+        script(src='%=static=%js/main%=hash=%%=min=%.js')
+
+
+        //- other scripts
+
+        //- common (always last)
+        script(src='%=static=%js/separate-js/common.js')
+

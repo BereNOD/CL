@@ -1,0 +1,54 @@
+mixin g-block
+    .g-block-both
+        // g-block cart
+        .g-block-both__btn-wrap
+            a(href='#').g-block-both__btn.g-block-both__btn--cart
+                span.g-block-both__btn-count 3
+            a(href='#').g-block-both__btn.g-block-both__btn--fav
+        .g-block.g-block--cart(style='display:none;')
+            .g-block__inner
+                mixin g-item
+                    .g-block-item
+                        .g-block-item__inner
+                            a(href='#').g-block-item__img
+                                img(src='static/img/content/g-1.png')
+                            .g-block-item__content
+                                a(href='#').g-block-item__content-title Harry Potter and the Deathly Hallows by Joanna Rowling
+                                .g-block-item__bottom
+                                    .g-block-item__content-count
+                                        +count
+                                    .g-block-item__content-price
+                                        span.g-block-item__content-cost.g-block-item__content-cost--new $180
+                                        strike.g-block-item__content-cost.g-block-item__content-cost--old $260
+                            span.g-block-item__close
+                +g-item
+                +g-item
+                +g-item
+                +g-item
+            .g-block__total
+                span.g-block__total-text Total:
+                span.g-block__total-text.g-block__total-cost $305
+            a(href='#').g-block__link Proceed to checkout
+
+        // g-block favorites
+        .g-block.g-block--fav(style='display:none;')
+            .g-block__inner
+                mixin g-item
+                    .g-block-item
+                        .g-block-item__inner
+                            a(href='#').g-block-item__img
+                                img(src='static/img/content/g-1.png')
+                            .g-block-item__content
+                                a(href='#').g-block-item__content-title Harry Potter and the Deathly Hallows by Joanna Rowling
+                                .g-block-item__bottom
+                                    .g-block-item__content-price
+                                        span.g-block-item__content-cost.g-block-item__content-cost--new 180$
+                                        strike.g-block-item__content-cost.g-block-item__content-cost--old 260$
+                                    .g-block-item__content-buy
+                                        a.g-block-item__content-buy-text(href='#') Buy
+                            span.g-block-item__close
+                +g-item
+                +g-item
+                +g-item
+                +g-item
+            a(href='#').g-block__link All favorites

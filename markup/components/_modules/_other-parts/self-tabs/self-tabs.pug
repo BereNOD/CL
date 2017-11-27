@@ -1,0 +1,54 @@
+mixin self-tabs
+    .self-tabs
+        .self-tabs__inner
+            .self-tabs__wrap
+                mixin self-tabs-title(title, id, cls)
+                    span.self-tabs__title(data-id='tab-' + id + '' class= cls)= title
+                +self-tabs-title('Description', 1, 'self-tabs__title--active')
+                +self-tabs-title('Shipping & Policies', 2, '')
+        mixin self-tabs-content(id, content, style)
+            .self-tabs__content(id='tab-' + id + '' style= style)
+                if content
+                    block
+        +self-tabs-content(1, 'content')
+            .desc-info-block
+                p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
+                .desc-info-block__inner
+                    mixin desc-item(data)
+                        .desc-info-item
+                            .desc-info-item__inner
+                                .desc-info-item__img
+                                    img(src='static/img/content/d-i-' + data.img + '.png')
+                                .desc-info-item__content
+                                    span.desc-info-item__content-text= data.text
+                    +desc-item({img: 1, text: 'The case is made to order to fit your device exactly.'})
+                    +desc-item({img: 2, text: 'The case looks as a real book/newspaper/magazine.'})
+                    +desc-item({img: 3, text: '100% American handmade item.'})
+                    +desc-item({img: 4, text: 'Padded to protect your device from accidental bumps and falls.'})
+                    +desc-item({img: 5, text: 'Non scratched waterproof canvas/leather cover.'})
+                    +desc-item({img: 6, text: 'High quality cotton canvas exterior.'})
+                    +desc-item({img: 7, text: 'Use 2 soft elastic bands to steady your device while you work with testing the case.'})
+                    +desc-item({img: 8, text: 'Dual zippers with leather bookmark pulls allow you to charge your device while it’s safely stored inside the case.'})
+                    +desc-item({img: 9, text: 'Variety of options: add pocket, initials, handles to your case.'})
+                    +desc-item({img: 10, text: 'Send us your personal image or design.'})
+                    +desc-item({img: 11, text: 'Ask for an accessories case to organize your charger cords, HDD-Drive, mouse, USB-flash, Flash Memory etc.'})
+                    +desc-item({img: 12, text: 'Collect the complete works of your favourite writer.'})
+        +self-tabs-content(2, 'content','display:none;')
+            .desc-info-block
+                p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+                .methods
+                    .methods__inner
+                        h3.methods__title Payment methods
+                        .methods__img
+                            img(src='static/img/content/p-1.png')
+                            img(src='static/img/content/p-2.png')
+                            img(src='static/img/content/p-3.png')
+                        .methods__content
+                            p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                .methods
+                    .methods__inner
+                        h3.methods__title Delivery time
+                        .methods__img
+                            img(src='static/img/content/d-1.png')
+                        .methods__content
+                            p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.

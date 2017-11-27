@@ -1,0 +1,138 @@
+mixin aside
+    aside.aside.inner-box__aside
+        .aside__option
+            .aside__option-name
+                h3.aside__option-name-text You’ve selected:
+        .aside__filters
+            .aside__filters-content
+                .aside__filters-field
+                    span.aside__filters-line-text $12.00 - $120.00
+                    span.aside__filters-line-close
+                .aside__filters-field
+                    span.aside__filters-line-text RED
+                    span.aside__filters-line-close
+                a(href='#').aside__filters-content-refresh Clear all
+        .aside__option
+            .aside__option-name
+                h3.aside__option-name-text Catalog
+                i.aside__option-name-arrow
+            .aside__option-values
+                .aside__option-field
+                    ul.aside__option-values-list
+                        mixin as-op(data)
+                            li.aside__option-values-list-item
+                                a(href='#').aside__option-values-list-link= data.title
+                                ul.aside__option-values-list-second
+                                    li.aside__option-values-list-item
+                                        a(href='#').aside__option-values-list-link Books
+                                    li.aside__option-values-list-item
+                                        a(href='#').aside__option-values-list-link Brochures
+                                    li.aside__option-values-list-item
+                                        a(href='#').aside__option-values-list-link Magazines
+                        +as-op({title: 'Tablet'})
+                        +as-op({title: 'Laptop'})
+                        +as-op({title: 'E-reader'})
+                        +as-op({title: 'Cell-phone'})
+                        +as-op({title: 'Charger'})
+                        +as-op({title: 'Book'})
+                        +as-op({title: 'Adventure book'})
+
+
+        mixin aside-option(title, id, model)
+            .aside__option
+                .aside__option-name
+                    h3.aside__option-name-text= title
+                    i.aside__option-name-arrow
+                .aside__option-values(class= model)
+                    mixin aside__option-field(id, text)
+                        .aside__option-field
+                            label.aside__option-values-label
+                                input(type="checkbox")
+                                span.aside__option-values-input
+                                span.aside__option-values-name= text
+                    if(id === 1)
+                        +aside__option-field('mp-1', "Fantasy")
+                        +aside__option-field('mp-2', "Adventure")
+                        +aside__option-field('mp-3', "Cartoon")
+                        +aside__option-field('mp-4', "Classic")
+                        +aside__option-field('mp-5', "Bestseller")
+                        +aside__option-field('mp-6', "Detective")
+                        +aside__option-field('mp-7', "Steampunk")
+                        +aside__option-field('mp-8', "Sci-Fy")
+                    if(id === 2 && model)
+                        +aside__option-field('m-1', 'Samsung')
+                        +aside__option-field('m-2', 'Apple')
+                        +aside__option-field('m-3', 'Xiaomi')
+                        +aside__option-field('m-4', 'Meizu')
+                        +aside__option-field('m-5', 'Lenovo')
+                        +aside__option-field('m-5', 'HTC')
+                        +aside__option-field('m-5', 'Asus')
+                        +aside__option-field('m-5', 'Huawei')
+                        +aside__option-field('m-1', 'Samsung')
+                        +aside__option-field('m-2', 'Apple')
+                        +aside__option-field('m-3', 'Xiaomi')
+                        +aside__option-field('m-4', 'Meizu')
+                        +aside__option-field('m-5', 'Lenovo')
+                        +aside__option-field('m-5', 'HTC')
+                        +aside__option-field('m-5', 'Asus')
+                        +aside__option-field('m-5', 'Huawei')
+        +aside-option('Line', 1)
+        +aside-option('Model', 2, 'option-model')
+        .aside__option
+            .aside__option-name
+                h3.aside__option-name-text Price
+                i.aside__option-name-arrow
+            .aside__option-values
+                .aside__option-values-slider#slider-handles
+                .aside__option-values-output
+                    #min-price-value.aside__option-input
+                    span -
+                    #max-price-value.aside__option-input
+        .aside__option
+            .aside__option-name
+                h3.aside__option-name-text Color
+                i.aside__option-name-arrow
+            .aside__option-values
+                .card-product__content-color
+                    .card-product__content-color-inner
+                        .card-product__content-color-array
+                            label.card-product__content-color-item
+                                input(type='checkbox')
+                                span.card-product__content-color-prop.is-white(data-color='#ffffff')
+                                    i.fa.fa-check.card-product__content-color-icon
+                            label.card-product__content-color-item
+                                input(type='checkbox')
+                                span.card-product__content-color-prop(data-color='#808080')
+                                    i.fa.fa-check.card-product__content-color-icon
+                            label.card-product__content-color-item
+                                input(type='checkbox')
+                                span.card-product__content-color-prop(data-color='#000000')
+                                    i.fa.fa-check.card-product__content-color-icon
+                            label.card-product__content-color-item
+                                input(type='checkbox')
+                                span.card-product__content-color-prop(data-color='#e62020')
+                                    i.fa.fa-check.card-product__content-color-icon
+                            label.card-product__content-color-item
+                                input(type='checkbox')
+                                span.card-product__content-color-prop(data-color='#209ee6')
+                                    i.fa.fa-check.card-product__content-color-icon
+                            label.card-product__content-color-item
+                                input(type='checkbox')
+                                span.card-product__content-color-prop(data-color='#159318')
+                                    i.fa.fa-check.card-product__content-color-icon
+                            label.card-product__content-color-item
+                                input(type='checkbox')
+                                span.card-product__content-color-prop(data-color='#f5f325')
+                                    i.fa.fa-check.card-product__content-color-icon
+                            label.card-product__content-color-item
+                                input(type='checkbox')
+                                span.card-product__content-color-prop(data-color='#e69920')
+                                    i.fa.fa-check.card-product__content-color-icon
+                            label.card-product__content-color-item
+                                input(type='checkbox')
+                                span.card-product__content-color-prop(data-color='#c418de')
+                                    i.fa.fa-check.card-product__content-color-icon
+                            label.card-product__content-color-item
+                                input(type='checkbox')
+                                span.card-product__content-color-prop(data-color='#8c5a0b')
+                                    i.fa.fa-check.card-product__content-color-icon

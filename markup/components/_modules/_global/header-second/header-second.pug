@@ -1,0 +1,130 @@
+mixin header
+    .header.header--second
+        .container-fluid
+            .header__inner
+                .header__logo
+                    a.logo(href='/')
+                        img(src='static/img/general/logo.png')
+                .header__content
+                    .header__menu
+                        ul.nav-list
+                            li.nav-list__item.nav-list__item--rel
+                                a(href='#').nav-list__link.nav-list__drop Products
+                                .main-nav.main-nav--small
+                                    .main-nav__inner
+                                        ul.main-nav__list
+                                            li.main-nav__item
+                                                a(href='#').main-nav__link Tablet
+                                            li.main-nav__item
+                                                a(href='#').main-nav__link Books
+                                            li.main-nav__item
+                                                a(href='#').main-nav__link Brochures
+                                            li.main-nav__item
+                                                a(href='#').main-nav__link Magazines
+                                            li.main-nav__item
+                                                a(href='#').main-nav__link Tablet
+                                            li.main-nav__item
+                                                a(href='#').main-nav__link Books
+                                            li.main-nav__item
+                                                a(href='#').main-nav__link Brochures
+                                            li.main-nav__item
+                                                a(href='#').main-nav__link Magazines
+                            li.nav-list__item
+                                a(href='#').nav-list__link.nav-list__drop Devices
+                                .main-nav
+                                    .main-nav__inner
+                                        ul.main-nav__list
+                                            li.main-nav__item
+                                                a(href='#').main-nav__link Tablet
+                                            li.main-nav__item
+                                                a(href='#').main-nav__link Books
+                                            li.main-nav__item
+                                                a(href='#').main-nav__link Brochures
+                                            li.main-nav__item
+                                                a(href='#').main-nav__link Magazines
+                                        ul.main-nav__list
+                                            li.main-nav__item
+                                                a(href='#').main-nav__link Laptop
+                                            li.main-nav__item
+                                                a(href='#').main-nav__link Books
+                                            li.main-nav__item
+                                                a(href='#').main-nav__link Brochures
+                                            li.main-nav__item
+                                                a(href='#').main-nav__link Magazines
+                                            li.main-nav__item
+                                                a(href='#').main-nav__link Newspapers
+                                        ul.main-nav__list
+                                            li.main-nav__item
+                                                a(href='#').main-nav__link E-reader
+                                            li.main-nav__item
+                                                a(href='#').main-nav__link Books
+                                            li.main-nav__item
+                                                a(href='#').main-nav__link Brochures
+                                            li.main-nav__item
+                                                a(href='#').main-nav__link Magazines
+                                        ul.main-nav__list
+                                            li.main-nav__item
+                                                a(href='#').main-nav__link Cell-phone
+                                            li.main-nav__item
+                                                a(href='#').main-nav__link Books
+                                            li.main-nav__item
+                                                a(href='#').main-nav__link Brochures
+                                        ul.main-nav__list
+                                            li.main-nav__item
+                                                a(href='#').main-nav__link Charger
+                                            li.main-nav__item
+                                                a(href='#').main-nav__link Books
+                                            li.main-nav__item
+                                                a(href='#').main-nav__link Brochures
+                                        ul.main-nav__list
+                                            li.main-nav__item
+                                                a(href='#').main-nav__link Book
+                                            li.main-nav__item
+                                                a(href='#').main-nav__link Books
+                                            li.main-nav__item
+                                                a(href='#').main-nav__link Brochures
+                                        ul.main-nav__list
+                                            li.main-nav__item
+                                                a(href='#').main-nav__link Adventure book
+                                        ul.main-nav__list
+                                            li.main-nav__item
+                                                a(href='#').main-nav__link Bag
+                            li.nav-list__item
+                                a(href='#').nav-list__link Services
+                            li.nav-list__item
+                                a(href='#').nav-list__link Luxury
+                        .header__search
+                            #search.search
+                                input.search__input(type='search' placeholder='Enter what do you want')
+                                button.search__btn
+                                span.search__close
+                    .header__order
+                        .custom-order
+                            a(href='#').custom-order__btn Custom order
+                    .header__sign-in
+                        .sign-in
+                            span.sign-in__text Welcome
+                            a.sign-in__enter.js-enter-list Constantin
+                            .sign-in__list
+                                ul.sign-in__list-inner
+                                    li.sign-in__list-item
+                                        a(href='#').sign-in__list-link Your orders
+                                    li.sign-in__list-item
+                                        a(href='#').sign-in__list-link Archive
+                                    li.sign-in__list-item
+                                        a(href='#').sign-in__list-link Bonus system
+                                    li.sign-in__list-item
+                                        a(href='#').sign-in__list-link Wishlist
+                                    li.sign-in__list-item
+                                        a(href='#').sign-in__list-link Recently viewed
+                                    li.sign-in__list-item
+                                        a(href='#').sign-in__list-link Settings
+                                    li.sign-in__list-item
+                                        a(href='#').sign-in__list-link Log out
+
+                    button(class="hamburger hamburger--emphatic" type="button")
+                        span(class="hamburger-box")
+                            span(class="hamburger-inner")
+    .g-overlay
+    .g-overlay-side
+    +popup-login

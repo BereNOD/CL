@@ -1,0 +1,47 @@
+.rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    width: 112px;
+    &__item {
+        width: 22px;
+        height: 22px;
+        cursor: auto;
+        position: relative;
+        &:after {
+            content: '\f006';
+            display: block;
+            font-size: 24px;
+            line-height: 27px;
+            color: #f9a61a;
+            @include center;
+            font-family: FontAwesome, sans-serif;
+        }
+        &:hover,
+        &:hover ~ * {
+            &:after {
+                content: '\f006';
+            }
+        }
+        &.active,
+        &.active ~ * {
+            &:after {
+                content: '\f005';
+            }
+        }
+    }
+    &-clickable {
+        .rating__item {
+            cursor: pointer;
+            &.active,
+            &.active ~ *,
+            &:hover,
+            &:hover ~ * {
+                &:after {
+                    content: '\f005';
+                    color: #f9a61a;
+                }
+            }
+        }
+    }
+}

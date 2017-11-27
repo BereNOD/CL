@@ -1,0 +1,21 @@
+section.top-slider
+    .top-slider__inner
+        mixin top-slider-item(data)
+            .top-slider-item(style='background: transparent url(static/img/content/top-bg-' + data.bg+ '.jpg) no-repeat center / cover')
+                .top-slider-item__inner
+                    .top-slider-item__content
+                        .top-slider-item__content-inner
+                            h3.top-slider-item__content-title Hide your device
+                                span.top-slider-item__content-title-bottom
+                                    span.top-slider-item__content-title-bottom-inner inside the book
+                            p.top-slider-item__content-text= data.text
+                            a.top-slider-item__content-link(href='#') Details
+                    .top-slider-item__img
+                        img(src='static/img/content/top-sl-' + data.img + '.png')
+        +top-slider-item({bg: 1, img: 1, text: 'CaseLibrary is a store of gorgeous cases & sleeves reminiscent of real books and newspapers. Designed exclusively for your device, this is a totally unique case that delivers as much personality as it does protection.'})
+        +top-slider-item({bg: 2, img: 2, text: 'CaseLibrary is a store of gorgeous cases & sleeves reminiscent of real books and newspapers. Designed exclusively for your device, this is a totally unique case that delivers as much personality as it does protection.'})
+        +top-slider-item({bg: 1, img: 1, text: 'CaseLibrary is a store of gorgeous cases & sleeves reminiscent of real books and newspapers. Designed exclusively for your device, this is a totally unique case that delivers as much personality as it does protection.'})
+        +top-slider-item({bg: 2, img: 2, text: 'CaseLibrary is a store of gorgeous cases & sleeves reminiscent of real books and newspapers. Designed exclusively for your device, this is a totally unique case that delivers as much personality as it does protection.'})
+    .top-slider__controls
+        .slider-arrow-prev
+        .slider-arrow-next

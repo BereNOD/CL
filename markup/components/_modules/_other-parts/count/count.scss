@@ -1,0 +1,64 @@
+.count {
+    width: 130px;
+    position: relative;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    &__input {
+        height: 40px;
+        background-color: #fff;
+        border: 1px solid $border-color;
+        width: 63px;
+        color: #000;
+        font-family: $open-font;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 18px;
+        text-align: center;
+        border-right: 0;
+        border-left: 0;
+        padding: 0 8px;
+    }
+    &__max, &__min {
+        width: 33px;
+        border: 1px solid $border-color;
+        height: 40px;
+        display: block;
+        background-color: #fff;
+        color: #fff;
+        position: relative;
+        font-size: 38px;
+        line-height: 24px;
+        transition: background-color 220ms;
+        cursor: pointer;
+        &:after {
+            content: '';
+            display: block;
+            @include center;
+        }
+    }
+    &__min {
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+        &:after {
+            @include bg($count-left-arrow);
+        }
+        &:hover {
+            &:after {
+                @include bg($count-left-arrow_hover);
+            }
+        }
+    }
+    &__max {
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+        &:after {
+            @include bg($count-right-arrow);
+        }
+        &:hover {
+            &:after {
+                @include bg($count-right-arrow_hover);
+            }
+        }
+    }
+}

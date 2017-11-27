@@ -1,0 +1,14 @@
+section.category-block
+    .category-block__inner
+        mixin category-item(data)
+            .category-item
+                a(href='#').category-item__inner
+                    .category-item__bg(class="category-item__bg--" + data.cls)
+                        .category-item__content
+                            .category-item__content-text
+                                span= data.title
+                        .category-item__img
+                            img(src='static/img/content/c-i-' + data.img + '.png')
+        +category-item({cls: 'phone', title: 'Phone', img: 1})
+        +category-item({cls: 'tablet', title: 'Tablet', img: 2})
+        +category-item({cls: 'laptop', title: 'Laptop', img: 3})

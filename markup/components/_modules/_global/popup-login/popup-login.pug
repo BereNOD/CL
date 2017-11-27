@@ -1,0 +1,29 @@
+mixin popup-login
+    .popup-block#popup-login.mfp-hide
+        .popup-block__inner
+            form.f-block
+                .f-block__inner
+                    h3.std-title Log in
+                    .f-block__field
+                        input.f-block__input(placeholder='Email' name='email')
+                    .f-block__field
+                        input.f-block__input(placeholder='Password' name='password')
+                    span.f-block__link
+                        a(href='#') Forget password?
+                    input.f-block__submit(type='submit' value='Log in')
+                    .f-block__field
+                        label.f-block__remember
+                            input(type='checkbox')
+                            span.f-block__remember-input
+                            | Remember me
+                    .f-block__line
+                        span.f-block__line-text or
+                    .f-block__social
+                        a.f-block__social-link.f-block__social-link--facebook(href='#') Log in with Facebook
+                        a.f-block__social-link.f-block__social-link--google(href='#') Log in with Google Plus
+                    p.f-block__text We'll never post anything in your social
+                        br
+                        |accounts without your permission.
+                .f-block__bottom
+                    p.f-block__bottom-text Not yet registered?
+                        a.f-block__bottom-text.f-block__bottom-text--link(href='#') Sign up!

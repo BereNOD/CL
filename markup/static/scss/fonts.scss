@@ -1,0 +1,31 @@
+@font-face {
+    font-family: 'GilroyRegular';                           /* same name */
+    src: url('../fonts/GilroyRegular/GilroyRegular.woff2'); /* different files */
+    font-weight: 400;                                       /* different density */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'GilroyRegular';                           /* same name */
+    src: url('../fonts/GilroyBold/GilroyBold.woff2');         /* different files */
+    font-weight: 700;                                       /* different density */
+    font-style: normal;
+}
+@font-face {
+    font-family: 'GilroyRegular';                           /* same name */
+    src: url('../fonts/GilroyMedium/GilroyMedium.woff2');     /* different files */
+    font-weight: 500;                                       /* different density */
+    font-style: normal;
+}
+@font-face {
+    font-family: 'GilroyRegular';                           /* same name */
+    src: url('../fonts/GilroyLight/GilroyLight.woff2');       /* different files */
+    font-weight: 300;                                       /* different density */
+    font-style: normal;
+}
+@font-face {
+    font-family: 'GilroyRegular';                           /* same name */
+    src: url('../fonts/GilroyBlack/GilroyBlack.woff2');       /* different files */
+    font-weight: 900;                                       /* different density */
+    font-style: normal;
+}

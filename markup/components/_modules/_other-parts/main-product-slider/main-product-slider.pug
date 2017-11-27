@@ -1,0 +1,42 @@
+mixin group-sliders(mainTitle)
+    section.pr-block
+        h2.std-title= mainTitle
+        .pr-block__inner
+            .pr-slider
+                .container-fluid
+                    .pr-slider__inner
+                        mixin pr-item(data)
+                            .pr-slider__item
+                                .pr-item
+                                    .pr-item__inner
+                                        .pr-item__special(class='pr-item__special--' + data.specialCls)
+                                            span.pr-item__special-text= data.special
+                                        a(href='#').pr-item__img
+                                            img(src='static/img/content/pr-b-' + data.img + '.png')
+                                        .pr-item__content
+                                            .pr-item__content-title
+                                                a(href='#') Here is the name of the product
+                                            .pr-item__content-review
+                                                .rating
+                                                    .rating__item.rating__item--no-click(data-rate='5')
+                                                    .rating__item.rating__item--no-click(data-rate='4')
+                                                    .rating__item.rating__item--no-click(data-rate='3')
+                                                    .rating__item.rating__item--no-click(data-rate='2')
+                                                    .rating__item.rating__item--no-click(data-rate='1')
+                                                a(href='#').pr-item__content-review-link
+                                                    span 323
+                                            .pr-item__content-cost
+                                                span.pr-item__price.pr-item__price--new= data.priceN
+                                                strike.pr-item__price.pr-item__price--old= data.priceO
+                                            .pr-item__content-btn
+                                                button.pr-item__btn Buy
+                                            .pr-item__content-likes
+                                                span.pr-item__content-likes-links 25 likes
+                        +pr-item({specialCls: 'sp-offer', special: 'Special offer', img: '1', priceN: '$50', priceO: '$60'})
+                        +pr-item({specialCls: 'sp-offer', special: 'Special offer', img: '2', priceN: '$70', priceO: '$80'})
+                        +pr-item({specialCls: 'bestseller', special: 'Bestseller', img: '3', priceN: '$45', priceO: '$55'})
+                        +pr-item({specialCls: 'sp-offer', special: 'Special offer', img: '4', priceN: '$50', priceO: '$67'})
+                        +pr-item({specialCls: 'new', special: 'New', img: '5', priceN: '$45', priceO: '$123'})
+                        +pr-item({specialCls: 'sp-offer', special: 'Special offer', img: '6', priceN: '$677', priceO: '$900'})
+                    .slider-arrow-prev
+                    .slider-arrow-next

@@ -1,0 +1,35 @@
+.self-tabs {
+    width: 100%;
+    &__wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    &__title {
+        display: block;
+        position: relative;
+        color: #000;
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 27px;
+        cursor: pointer;
+        transition: color $color-time;
+        padding: 0 30px;
+        margin-bottom: 25px;
+        &:first-child {
+            &:after {
+                content: '';
+                display: block;
+                @include center(false,true);
+                right: 0;
+                width: 2px;
+                height: 33px;
+                background-color: $border-color;
+            }
+        }
+        &:hover,&:focus,&--active {
+            color: $accent-color;
+        }
+    }
+}

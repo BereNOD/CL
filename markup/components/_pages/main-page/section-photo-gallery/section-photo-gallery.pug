@@ -1,0 +1,34 @@
+section.photo-block
+    h2.std-title Photos of our products
+    .container-fluid
+        .photo-block__hidden
+            img(src='static/img/content/ph-1.jpg')
+            img(src='static/img/content/ph-2.jpg')
+            img(src='static/img/content/ph-3.jpg')
+            img(src='static/img/content/ph-4.jpg')
+            img(src='static/img/content/ph-5.jpg')
+            img(src='static/img/content/ph-6.jpg')
+        .photo-block__inner
+            .photo-block__half
+                a(href="static/img/content/ph-1.jpg" data-fancybox="gallery").photo-img-big
+                    .photo-img-big__inner
+                        img(src='static/img/content/ph-1.jpg')
+            .photo-block__half
+                a.photo-img-small(href="static/img/content/ph-2.jpg" data-fancybox="gallery")
+                    .photo-img-small__inner
+                        img(src='static/img/content/ph-2.jpg')
+                a.photo-img-small(href="static/img/content/ph-3.jpg" data-fancybox="gallery")
+                    .photo-img-small__inner
+                        img(src='static/img/content/ph-3.jpg')
+                a.photo-img-small(href="static/img/content/ph-4.jpg" data-fancybox="gallery")
+                    .photo-img-small__inner
+                        img(src='static/img/content/ph-4.jpg')
+                a.photo-img-small(href="static/img/content/ph-5.jpg" data-fancybox="gallery")
+                    .photo-img-small__inner
+                        img(src='static/img/content/ph-5.jpg')
+        .circle
+            svg(class="circleFill filled")
+                circle(cx="45" cy="45" r="40" stroke="#e6e6e6" stroke-width="5" fill="none")
+            svg(class="circleTrack")
+                circle(cx="45" cy="45" r="40" stroke="#33bddf" stroke-width="5" fill="none")
+            span.circle__text More

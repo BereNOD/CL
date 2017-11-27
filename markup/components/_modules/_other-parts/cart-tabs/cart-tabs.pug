@@ -1,0 +1,237 @@
+mixin cart-tabs
+    .cart-tabs
+        .cart-tabs__inner
+            .cart-tabs__wrap
+                mixin cart-tabs-title(title, id, cls)
+                    span.cart-tabs__title(data-id='tab-' + id + '' class= cls)= title
+                +cart-tabs-title('New customer', 1, 'cart-tabs__title--active')
+                +cart-tabs-title('Regular customer', 2, '')
+                +cart-tabs-title('Guest checkout', 3, '')
+        mixin cart-tabs-content(id, content, style, cls)
+            .cart-tabs__content(id='tab-' + id + '' style= style, class= cls)
+                if content
+                    block
+        +cart-tabs-content(1, 'content', '', 'is-active')
+            form.cart-block__form#form1
+                .cart-block__form-inner
+                    .cart-block__form-left
+                        .cart-block__address.std-select
+                            h4.cart-block__form-title.cart-block__form-title--left Billing address
+                            .address-block
+                                .address-block__field
+                                    input.address-block__input(placeholder='Email' name='email')
+                                .address-block__field
+                                    input.address-block__input(placeholder='Password' name='password')
+                                .address-block__field
+                                    input.address-block__input(placeholder='First name' name='firstname')
+                                .address-block__field
+                                    input.address-block__input(placeholder='Last name' name='lastname')
+                                .address-block__field
+                                    input.address-block__input(placeholder='Address line 1' name='address1')
+                                .address-block__field
+                                    input.address-block__input(placeholder='Address line 2' name='address2')
+                                .address-block__field
+                                    input.address-block__input(placeholder='City' name='city')
+                                .address-block__field
+                                    select.std-select--state
+                                        option
+                                        option Ukraine
+                                        option USA
+                                        option New-York
+                                .address-block__field
+                                    select.std-select--country
+                                        option
+                                        option Zaporozhzhye
+                                        option Dnepr
+                                        option Kyiv
+                                .address-block__field
+                                    input.address-block__input(placeholder='Zip code' name='zipcode')
+                                .address-block__field
+                                    input.address-block__input(placeholder='Telephone' name='phone')
+                            h4.cart-block__form-title.cart-block__form-title--left Shipping address
+                            .cart-block-payment__left
+                                .payment-block__field
+                                    label.cart-block__option
+                                        input.cart-block__option-same(type='radio' name='address' checked)
+                                        span.cart-block__option-input
+                                        span.cart-block__option-text Same as billing
+                                .payment-block__field
+                                    label.cart-block__option
+                                        input.cart-block__option-different(type='radio' name='address')
+                                        span.cart-block__option-input
+                                        span.cart-block__option-text Different address
+                            .address-block.address-block--toggle
+                                .address-block__field
+                                    input.address-block__input(placeholder='Email' name='email2')
+                                .address-block__field
+                                    input.address-block__input(placeholder='First name' name='firstname2')
+                                .address-block__field
+                                    input.address-block__input(placeholder='Last name' name='lastname2')
+                                .address-block__field
+                                    input.address-block__input(placeholder='Address line 1' name='address1_2')
+                                .address-block__field
+                                    input.address-block__input(placeholder='Address line 2' name='address2_2')
+                                .address-block__field
+                                    input.address-block__input(placeholder='City' name='city2')
+                                .address-block__field
+                                    select.std-select--state
+                                        option
+                                        option Ukraine
+                                        option USA
+                                        option New-York
+                                .address-block__field
+                                    input.address-block__input(placeholder='Zip code' name='zipcode2')
+                                .address-block__field
+                                    input.address-block__input(placeholder='Telephone' name='phone2')
+                            .cart-block__total
+                                .f-block__field.is-active
+                                    label.f-block__remember
+                                        input(type='checkbox')
+                                        span.f-block__remember-input
+                                        | Subscribe to newsletter
+                                .pr-total
+                                    .pr-total__line
+                                        span.pr-total__text.pr-total__text--bold Total:&nbsp;
+                                        span.pr-total__text.pr-total__text--bold $225
+                                input.cart-block__submit(type='submit' value='Checkout')
+                    .cart-block__form-right
+                        .cart-block__payment
+                            h4.cart-block__form-title Payment
+                            .payment-block
+                                .payment-block__field
+                                    label.cart-block__option
+                                        input(type='radio' name='payment' checked)
+                                        span.cart-block__option-input
+                                        span.cart-block__option-text PayPal
+                                .payment-block__field
+                                    label.cart-block__option
+                                        input(type='radio' name='payment')
+                                        span.cart-block__option-input
+                                        span.cart-block__option-text Visa/MasterCard
+                                h4.cart-block__form-title Comment to the order
+                                .payment-block__field
+                                    textarea.payment-block__textarea(placeholder='Write a comment to the order...' name='area')
+        +cart-tabs-content(2, 'content','display:none;')
+            .cart-block__form
+                .f-block
+                    h3.std-title Log in
+                    .f-block__inner
+                        form.f-block__left
+                            .f-block__field
+                                input.f-block__input(placeholder='Email' name='email')
+                            .f-block__field
+                                input.f-block__input(placeholder='Password' name='password')
+                            span.f-block__link
+                                a(href='#') Forget password?
+                            input.f-block__submit(type='submit' value='Log in')
+                        .f-block__line
+                            span.f-block__line-text or
+                        .f-block__right
+                            .f-block__social
+                                span.f-block__social-text Log in with socials
+                                a.f-block__social-link.f-block__social-link--facebook(href='#') Log in with Facebook
+                                a.f-block__social-link.f-block__social-link--google(href='#') Log in with Google Plus
+                            p.f-block__text We'll never post anything in your social
+                                br
+                                | accounts without your permission.
+
+        +cart-tabs-content(3, 'content','display:none;')
+            form.cart-block__form#form3
+                .cart-block__form-inner
+                    .cart-block__form-left
+                        .cart-block__address.std-select
+                            h4.cart-block__form-title.cart-block__form-title--left Billing address
+                            .address-block
+                                .address-block__field
+                                    input.address-block__input(placeholder='Email' name='email')
+                                .address-block__field
+                                    input.address-block__input(placeholder='Password' name='password')
+                                .address-block__field
+                                    input.address-block__input(placeholder='First name' name='firstname')
+                                .address-block__field
+                                    input.address-block__input(placeholder='Last name' name='lastname')
+                                .address-block__field
+                                    input.address-block__input(placeholder='Address line 1' name='address1')
+                                .address-block__field
+                                    input.address-block__input(placeholder='Address line 2' name='address2')
+                                .address-block__field
+                                    input.address-block__input(placeholder='City' name='city')
+                                .address-block__field
+                                    select.std-select--state
+                                        option
+                                        option Ukraine
+                                        option USA
+                                        option New-York
+                                .address-block__field
+                                    select.std-select--country
+                                        option
+                                        option Zaporozhzhye
+                                        option Dnepr
+                                        option Kyiv
+                                .address-block__field
+                                    input.address-block__input(placeholder='Zip code' name='zipcode')
+                                .address-block__field
+                                    input.address-block__input(placeholder='Telephone' name='phone')
+                            h4.cart-block__form-title.cart-block__form-title--left Shipping address
+                            .cart-block-payment__left
+                                .payment-block__field
+                                    label.cart-block__option
+                                        input.cart-block__option-same(type='radio' name='address' checked)
+                                        span.cart-block__option-input
+                                        span.cart-block__option-text Same as billing
+                                .payment-block__field
+                                    label.cart-block__option
+                                        input.cart-block__option-different(type='radio' name='address')
+                                        span.cart-block__option-input
+                                        span.cart-block__option-text Different address
+                            .address-block.address-block--toggle
+                                .address-block__field
+                                    input.address-block__input(placeholder='Email' name='email2')
+                                .address-block__field
+                                    input.address-block__input(placeholder='First name' name='firstname2')
+                                .address-block__field
+                                    input.address-block__input(placeholder='Last name' name='lastname2')
+                                .address-block__field
+                                    input.address-block__input(placeholder='Address line 1' name='address1_2')
+                                .address-block__field
+                                    input.address-block__input(placeholder='Address line 2' name='address2_2')
+                                .address-block__field
+                                    input.address-block__input(placeholder='City' name='city2')
+                                .address-block__field
+                                    select.std-select--state
+                                        option
+                                        option Ukraine
+                                        option USA
+                                        option New-York
+                                .address-block__field
+                                    input.address-block__input(placeholder='Zip code' name='zipcode2')
+                                .address-block__field
+                                    input.address-block__input(placeholder='Telephone' name='phone2')
+                            .cart-block__total
+                                .f-block__field.is-active
+                                    label.f-block__remember
+                                        input(type='checkbox')
+                                        span.f-block__remember-input
+                                        | Subscribe to newsletter
+                                .pr-total
+                                    .pr-total__line
+                                        span.pr-total__text.pr-total__text--bold Total:&nbsp;
+                                        span.pr-total__text.pr-total__text--bold $225
+                                input.cart-block__submit(type='submit' value='Checkout')
+                    .cart-block__form-right
+                        .cart-block__payment
+                            h4.cart-block__form-title Payment
+                            .payment-block
+                                .payment-block__field
+                                    label.cart-block__option
+                                        input(type='radio' name='payment2' checked)
+                                        span.cart-block__option-input
+                                        span.cart-block__option-text PayPal
+                                .payment-block__field
+                                    label.cart-block__option
+                                        input(type='radio' name='payment2')
+                                        span.cart-block__option-input
+                                        span.cart-block__option-text Visa/MasterCard
+                                h4.cart-block__form-title Comment to the order
+                                .payment-block__field
+                                    textarea.payment-block__textarea(placeholder='Write a comment to the order...' name='area')

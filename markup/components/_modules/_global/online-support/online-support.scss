@@ -1,0 +1,25 @@
+.online-support {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    padding: 10px;
+    &__btn {
+        display: block;
+        width: 170px;
+        height: 40px;
+        background-color: $accent-color;
+        border-radius: 3px;
+        border: 1px solid transparent;
+        color: #fff;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 42px;
+        text-align: center;
+        transition: background-color $color-time, border-color $color-time, color $color-time;
+        &:hover,&:focus {
+            background-color: #fff;
+            color: $accent-color;
+            border-color: $accent-color;
+        }
+    }
+}

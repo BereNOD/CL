@@ -1,0 +1,257 @@
+.g-block {
+    &-both {
+        position: fixed;
+        right: 0;
+        top: 20%;
+        width: 712px;
+        background-color: #f4f4f4;
+        border: 2px solid $border-color;
+        border-radius: 3px 0 0 3px;
+        padding: 40px 0 50px 40px;
+        transform: translateX(712px);
+        transition: transform $color-time;
+        z-index: 1060;
+        min-height: 300px;
+        &.is-active {
+            transform: translateX(0);
+        }
+        &__btn {
+            width: 76px;
+            height: 76px;
+            background-color: #f4f4f4;
+            border: 2px solid $border-color;
+            display: block;
+            border-radius: 3px 0 0;
+            position: relative;
+            &:after {
+                content: '';
+                display: block;
+                @include center;
+            }
+            &--cart {
+                &:after {
+                    @include bg($g-cart-icon);
+                }
+            }
+            &--fav {
+                margin-top: -2px;
+                &:after {
+                    @include bg($g-heart-icon);
+                }
+                &-empty {
+                    &:after {
+                        @include bg($g-heart-icon_empty);
+                    }
+                }
+            }
+            &-count {
+                width: 24px;
+                height: 24px;
+                background-color: $accent-color;
+                color: #fff;
+                font-weight: 700;
+                display: block;
+                position: absolute;
+                bottom: 10px;
+                z-index: 3;
+                right: 10px;
+                border-radius: 50%;
+                text-align: center;
+                line-height: 27px;
+                font-size: 18px;
+            }
+            &-wrap {
+                position: absolute;
+                left: -76px;
+            }
+            &.is-active {
+                border-right: none;
+            }
+        }
+    }
+    &__inner {
+        height: 520px;
+        overflow-y: auto;
+        padding-right: 25px;
+        margin-bottom: 20px;
+        .mCSB_inside > .mCSB_container {
+            margin-right: 40px;
+        }
+        .mCSB_scrollTools {
+            .mCSB_draggerRail {
+                border: 1px solid $border-color;
+                border-radius: 5px;
+                width: 14px;
+                background-color: #f4f4f4;
+            }
+            .mCSB_dragger {
+                height: 300px!important;
+                .mCSB_dragger_bar {
+                    width: 14px;
+                    height: 300px;
+                    border-radius: 5px;
+                    background-color: $accent-color;
+                    &:after {
+                        content: '';
+                        display: block;
+                        @include center;
+                        @include bg($threeline);
+                    }
+                }
+            }
+            .mCSB_buttonDown,.mCSB_buttonUp {
+                position: absolute;
+                background: none;
+                height: 8px;
+                width: 16px;
+                opacity: 1;
+                &:hover,&:focus {
+                    &:after,&:before {
+                        background-color: $accent-color;
+                    }
+                }
+                &:after,&:before {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    background-color: #6a6a6a;
+                    height: 1px;
+                    width: 100%;
+                    left: 0;
+                }
+                &:before {
+                    transform: rotate(45deg);
+                }
+                &:after {
+                    transform: rotate(-45deg);
+                }
+            }
+            .mCSB_buttonUp {
+                top: 0;
+                &:after,&:before {
+                    top: 0;
+                }
+            }
+            .mCSB_buttonDown {
+                bottom: 0;
+                &:after,&:before {
+                    bottom: 0;
+                }
+            }
+        }
+    }
+    &-item {
+        padding: 30px 0;
+        position: relative;
+        border-top: 1px solid $border-color;
+        border-bottom: 1px solid $border-color;
+        &:first-of-type {
+            padding-top: 0;
+            border-top: none;
+        }
+        &__inner {
+            display: flex;
+            padding: 0 40px 0 20px;
+            position: relative;
+        }
+        &__img {
+            width: 180px;
+            flex: 0 0 auto;
+            display: block;
+        }
+        &__bottom {
+            display: flex;
+            align-items: flex-end;
+        }
+        &__content {
+            padding-left: 20px;
+            width: 100%;
+            &-count {
+                margin-right: 20px;
+            }
+            &-title {
+                color: $main-color;
+                font-weight: 700;
+                font-size: 24px;
+                line-height: 27px;
+                display: block;
+                margin: 0 0 10px 0;
+            }
+            &-cost {
+                font-weight: 700;
+                line-height: 27px;
+                &--new {
+                    color: #f9a61a;
+                    font-size: 36px;
+                }
+                &--old {
+                    color: #a4a4a4;
+                    font-size: 24px;
+                    margin-left: 10px;
+                }
+            }
+            &-buy {
+                margin-left: 30px;
+                width: 155px;
+                &-text {
+                    @extend .std-btn;
+                    width: 155px;
+                    line-height: 50px;
+                    padding: 0;
+                }
+            }
+        }
+        &__close {
+            position: absolute;
+            right: 5px;
+            width: 15px;
+            height: 15px;
+            top: 0;
+            cursor: pointer;
+            &:before,&:after {
+                content: '';
+                display: block;
+                position: absolute;
+                width: 15px;
+                background-color: #a4a4a4;
+                top: 7px;
+                left: 0;
+                height: 1px;
+            }
+            &:before {
+                transform: rotate(-45deg);
+            }
+            &:after {
+                transform: rotate(45deg);
+            }
+            &:hover,&:focus {
+                &:before,&:after {
+                    background-color: $accent-color;
+                }
+            }
+        }
+    }
+    &__total {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &-text {
+            color: $main-color;
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 36px;
+            display: block;
+        }
+        &-cost {
+            margin-left: 5px;
+        }
+    }
+    &__link {
+        @extend .std-btn;
+        width: 325px;
+        margin: 20px auto 0;
+    }
+}
+
+
+

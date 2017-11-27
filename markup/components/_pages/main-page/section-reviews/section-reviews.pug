@@ -1,0 +1,33 @@
+section.r-block
+    .container-fluid
+        h3.r-block__title
+            span.r-block__title-text Reviews
+        .r-block__slider
+            .r-slider
+                mixin r-item(data)
+                    .r-slider__item
+                        .r-item
+                            .r-item__inner
+                                .r-item__img
+                                    img(src='static/img/content/r-i-' + data.img + '.png')
+                                .r-item__content
+                                    h4.r-item__content-name John Doe
+                                    .r-item__content-rating
+                                        .rating
+                                            .rating__item.rating__item--no-click(data-rate='5')
+                                            .rating__item.rating__item--no-click(data-rate='4')
+                                            .rating__item.rating__item--no-click(data-rate='3')
+                                            .rating__item.rating__item--no-click(data-rate='2')
+                                            .rating__item.rating__item--no-click(data-rate='1')
+                                    p.r-item__content-text Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+
+                +r-item({img: 1})
+                +r-item({img: 2})
+                +r-item({img: 1})
+                +r-item({img: 2})
+                +r-item({img: 1})
+                +r-item({img: 2})
+            .r-block__controls
+                .slider-arrow-prev
+                .slider-arrow-next
+            a.r-block__link(href='#') All reviews

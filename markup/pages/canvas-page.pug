@@ -1,0 +1,78 @@
+doctype html
+html(class="no-js", lang="ru")
+
+    //- include head
+    include ../components/head/head
+
+    //- include _global-modules
+    include ../components/_modules/_global/header-second/header-second
+    include ../components/_modules/_global/footer/footer
+    include ../components/_modules/_global/top-line/top-line
+    include ../components/_modules/_global/popup-login/popup-login
+    include ../components/_modules/_global/cart-fav-blocks/cart-fav-block
+    include ../components/_modules/_global/online-support/online-support
+
+    //- include _other-modules
+    include ../components/_modules/_other-parts/rating/rating
+    include ../components/_modules/_situations/breadcrumbs/breadcrumbs
+    include ../components/_modules/_other-parts/count/count
+    include ../components/_modules/_other-parts/main-product-slider/main-product-slider
+    include ../components/_modules/_other-parts/self-tabs/self-tabs
+    include ../components/_modules/_other-parts/cart-tabs/cart-tabs
+    include ../components/_modules/_other-parts/aside/aside
+
+    //- include page-template
+    include ../components/_pages/canvas-page/canvas-page
+
+
+    head
+        +head(head.defaults)
+
+    body.page
+        |%=symbols=%
+
+        +top-line
+        //header
+        +header
+        +g-block
+
+        section.page__wrapper
+
+            //page
+            +canvas-page
+
+        +online-support
+        //footer
+        +footer
+
+        script(src='%=static=%js/separate-js/svg4everybody.min.js')
+        script svg4everybody();
+
+        //- Main scripts. You can replace it, but I recommend you to leave it here
+        script(src='%=static=%js/main%=hash=%%=min=%.js')
+
+
+        //- other scripts
+
+        //- common (always last)
+        script(src='%=static=%js/separate-js/fabric.min.js')
+        script(src='http://cdnjs.cloudflare.com/ajax/libs/lodash.js/1.2.1/lodash.min.js')
+        script(src='%=static=%js/separate-js/bower_components/dom-to-image/dist/dom-to-image.min.js')
+
+        script(src='%=static=%js/separate-js/spectrum.js')
+
+        script(src='%=static=%js/separate-js/glfx.js')
+            
+        script(src='%=static=%js/separate-js/common.js')
+        script(src='%=static=%js/separate-js/3d.js')
+        .preloader
+            .info-block
+                .spiner
+                span Please wait
+                br
+                span photos of the case are generated
+                span#preload-states
+                    span#preload-current-state 1
+                    span /
+                    span#preload-all-states 5
+

@@ -1,0 +1,160 @@
+// Input
+// ==================================================
+@mixin placeholder {
+    &::-webkit-input-placeholder {@content}
+    &:-moz-placeholder           {@content}
+    &::-moz-placeholder          {@content}
+    &:-ms-input-placeholder      {@content}
+}
+
+// Input Focus
+// ==================================================
+@mixin placeholder-focus {
+    &:focus::-webkit-input-placeholder {@content}
+    &:focus:-moz-placeholder           {@content}
+    &:focus::-moz-placeholder          {@content}
+    &:focus:-ms-input-placeholder      {@content}
+}
+
+// Absolutely centers the element inside of its first non-static parent
+// ==================================================
+@mixin center($horizontal: true, $vertical: true) {
+    position: absolute;
+    @if ($horizontal and $vertical) {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    } @else if ($horizontal) {
+        left: 50%;
+        transform: translate(-50%, 0);
+    } @else if ($vertical) {
+        top: 50%;
+        transform: translate(0, -50%);
+    }
+}
+
+
+/// Mixin to customize scrollbars
+/// Beware, this does not work in all browsers
+/// @author Hugo Giraudel
+/// @param {Length} $size - Horizontal scrollbar's height and vertical scrollbar's width
+/// @param {Color} $foreground-color - Scrollbar's color
+/// @param {Color} $background-color [mix($foreground-color, white, 50%)] - Scrollbar's color
+/// @example scss - Scrollbar styling
+///   @include scrollbars(.5em, slategray);
+@mixin scrollbars($size, $foreground-color, $background-color: mix($foreground-color, white,  50%)) {
+    // For Google Chrome
+    ::-webkit-scrollbar {
+        width:  $size;
+        height: $size;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: $foreground-color;
+    }
+    ::-webkit-scrollbar-track {
+        background: $background-color;
+    }
+    // For Internet Explorer
+    body {
+        scrollbar-face-color: $foreground-color;
+        scrollbar-track-color: $background-color;
+    }
+}
+
+
+// Clear
+// ==================================================
+@mixin clearFix {
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+// Responsive block
+// ==================================================
+//=coverDiv
+//    top: 0
+//    left: 0
+//    width: 100%
+//    height: 100%
+
+// Cover img
+// ==================================================
+
+//=coverImg
+//    background-repeat: no-repeat
+//    background-size: cover
+//    background-position: 50% 50%
+
+// Pseudo
+// ==================================================
+%pseudo {
+    position: relative;
+    &:before, &:after {
+        content: '';
+        display: block;
+    }
+}
+@mixin pseudo {
+    @extend %pseudo
+}
+
+// Text-overflow
+// ==================================================
+@mixin text-overflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+// Triangle
+// ==================================================
+@mixin triangle($width, $dir, $color) {
+    @if $dir == up {
+        width: 0;
+        height: 0;
+        border-left: $width/2 solid transparent;
+        border-right: $width/2 solid transparent;
+        border-bottom: $width/2 solid $color;
+    } @else if $dir == down {
+        width: 0;
+        height: 0;
+        border-left: $width/2 solid transparent;
+        border-right: $width/2 solid transparent;
+        border-top: $width/2 solid $color;
+    } @else if $dir == right {
+        width: 0;
+        height: 0;
+        border-top: $width solid transparent;
+        border-bottom: $width solid transparent;
+        border-left: $width solid $color;
+    } @else if $dir == left {
+        width: 0;
+        height: 0;
+        border-top: $width solid transparent;
+        border-bottom: $width solid transparent;
+        border-right: $width solid $color;
+    }
+}
+
+// Text settings
+// ==================================================
+//=format-text($font-size: false, $font-weight: 300, $color: false, $line-height: false)
+//    font-size: $font-size + px
+//    font-weight: $font-weight
+//    @if $font-size
+//        $font-size: $font-size + px
+//    @else
+//        $font-size: $default-size
+//    @if $color
+//        color: $color
+//    @else
+//        color: $main-color
+//    @if $line-height
+//        line-height: $line-height + px
+//    @else
+//        line-height: 100%
+
+

@@ -1,0 +1,40 @@
+.breadcrumbs {
+    padding: 30px 0;
+
+    a {
+        font-weight: 400;
+        position: relative;
+        display: inline-block;
+        font-size: 16px;
+        line-height: 27px;
+        font-family: $open-font;
+        color: $accent-color;
+
+        &:after {
+            content: '\f105';
+            display: inline-block;
+            right: 0;
+            line-height: 27px;
+            font-family: FontAwesome, sans-serif;
+            font-size: 16px;
+            margin: 0 5px;
+            color: #ccc;
+        }
+
+        &:first-child {
+            font-weight: 700;
+        }
+
+        &:last-child {
+            color: #696969;
+            pointer-events: none;
+
+            &:after {
+                content: none;
+            }
+
+        }
+
+    }
+
+}

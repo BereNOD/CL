@@ -1,0 +1,18 @@
+section.w-o-block
+    .container-fluid
+        h2.std-title What we offer?
+        .w-o-block__inner
+            mixin w-o-item(data)
+                .w-o-item
+                    .w-o-item__inner
+                        .w-o-item__img
+                            img(src='static/img/content/w-o-' + data.img + '.png')
+                        .w-o-item__content
+                            h4.w-o-item__content-title= data.title
+                            p.w-o-item__content-text= data.text
+            +w-o-item({img: 1, title: 'Any Design', text: 'Find your favorite book, magazine and newspaper cover on our cases here or offer your custom'})
+            +w-o-item({img: 2, title: 'Free Shipping Worldwide', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua'})
+            +w-o-item({img: 3, title: 'Any Device', text: 'All of the cases are made by hand with love by our team. Padded cover to protect your device from accidental bumps and falls'})
+            +w-o-item({img: 4, title: '100% American Handmade Items', text: 'All of the cases are made by hand with love by our team. Padded cover to protect your device from accidental bumps and falls'})
+            +w-o-item({img: 5, title: 'Bonus & Refferal Program', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua '})
+            +w-o-item({img: 6, title: '14 Days Money Back Guarantee', text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua '})

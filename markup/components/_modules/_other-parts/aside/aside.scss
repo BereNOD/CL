@@ -1,0 +1,320 @@
+.aside {
+    position: relative;
+    z-index: 3;
+    background-color: #fff;
+    margin-bottom: 30px;
+    &__filters {
+        &-line {
+            &-close {
+                position: relative;
+                display: block;
+                cursor: pointer;
+                &:after,&:before {
+                    content: '';
+                    height: 2px;
+                    width: 12px;
+                    display: block;
+                    background-color: #a6a6a6;
+                    position: absolute;
+                    top: 50%;
+                    left: 0;
+                    -webkit-transition: background-color 220ms;
+                    transition: background-color 220ms;
+                }
+                &:before {
+                    transform: rotate(-45deg)
+                }
+                &:after {
+                    transform: rotate(45deg)
+                }
+                &:hover {
+                    &:after,&:before {
+                        background-color: $accent-color;
+                    }
+                }
+            }
+            &-text {
+                margin-right: 20px;
+                color: $main-color;
+                font-weight: 700;
+                font-size: 18px;
+                line-height: 26px;
+                display: block;
+            }
+        }
+        &-content {
+            margin: 20px 0;
+            padding-left: 15px;
+            &-refresh {
+                color: $accent-color;
+                font-weight: 700;
+                font-size: 18px;
+                text-decoration: underline;
+                display: inline-block;
+                line-height: 28px;
+                margin-top: 15px;
+                &:hover, &:focus {
+                    color: $accent-color;
+                    text-decoration: none;
+                }
+            }
+        }
+        &-field {
+            display: flex;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+    }
+    &__option {
+        &:first-of-type {
+            .aside__option-name {
+                padding-top: 5px;
+            }
+        }
+        &-name {
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            position: relative;
+            &:after {
+                content: '';
+                display: block;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 2px;
+                background-color: $border-color;
+                border-radius: 1px;
+            }
+            &:hover {
+                .aside__option-name-arrow {
+                    &:after,&:before {
+                        background-color: $accent-color-2;
+                    }
+                }
+            }
+            &-text {
+                color: $accent-color-2;
+                font-weight: 700;
+                font-size: 24px;
+                margin: 0;
+                line-height: 24px;
+            }
+            &-arrow {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 23px;
+                height: 12px;
+                color: $border-color;
+                position: relative;
+                font-size: 30px;
+                &:before,&:after {
+                    content: '';
+                    height: 2px;
+                    width: 13px;
+                    background-color: #a6a6a6;
+                    display: block;
+                    @include center(false,true);
+                    transition: transform $color-time;
+                }
+                &:before {
+                    transform: rotate(-45deg);
+                    left: 2px;
+                }
+                &:after {
+                    transform: rotate(45deg);
+                    right: 0;
+                }
+                &.rotate-active {
+                    &:before {
+                        transform: rotate(45deg);
+                    }
+                    &:after {
+                        transform: rotate(-45deg);
+                    }
+                }
+            }
+        }
+        &-values {
+            //display: none;
+            margin: 20px 0;
+            &-inner {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+                padding: 10px 0 0 0;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+            input[type=checkbox] {
+                display: none;
+            }
+            &-label {
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+                margin: 0;
+                &:hover {
+                    .aside__option-values-name {
+                        color: $accent-color-2;
+                    }
+                    .aside__option-values-input {
+                        border-color: $accent-color-2;
+                    }
+                }
+            }
+            &-name {
+                color: $main-color;
+                font-weight: 700;
+                display: block;
+                font-size: 18px;
+                line-height: 18px;
+                transition: color $color-time;
+            }
+            &-input {
+                width: 20px;
+                height: 20px;
+                background-color: #fff;
+                border: 1px solid $border-color;
+                border-radius: 3px;
+                display: block;
+                margin: 0 10px 0 0;
+                flex: 0 0 auto;
+                position: relative;
+                transition: border-color $color-time;
+            }
+            input[type=checkbox]:checked + .aside__option-values-input {
+                border-color: $accent-color-2;
+                &:before {
+                    content: '';
+                    @include center;
+                    display: block;
+                    @include bg($check);
+                }
+            }
+            input[type=checkbox]:checked +
+            .aside__option-values-input + .aside__option-values-name {
+                color: $accent-color-2;
+            }
+            &-output {
+                display: flex;
+                align-items: center;
+                margin-top: 12px;
+                padding-left: 30px;
+                span {
+                    color: $main-color;
+                    font-weight: 700;
+                    font-size: 24px;
+                    display: block;
+                    margin: 0 5px;
+                }
+            }
+            &-list {
+                &-link {
+                    color: $main-color;
+                    font-weight: 700;
+                    font-size: 18px;
+                    display: block;
+                    position: relative;
+                    padding-left: 20px;
+                    transition: transform $color-time;
+                    &:before,&:after {
+                        content: '';
+                        display: block;
+                        position: absolute;
+                        width: 8px;
+                        height: 1px;
+                        left: 0;
+                        background-color: #6a6a6a;
+                        top: 50%;
+                    }
+                    &:before {
+                        transform: rotate(45deg);
+                        top: 8px;
+                    }
+                    &:after {
+                        transform: rotate(-45deg);
+                    }
+                    &.is-active {
+                        color: #6a6a6a;
+                        &:before,&:after {
+                            top: 11px;
+                        }
+                        &:before {
+                            transform: rotate(45deg);
+                        }
+                        &:after {
+                            transform: rotate(-45deg);
+                            left: 5px;
+                        }
+                    }
+                }
+                &-second {
+                    margin-left: 15px;
+                    display: none;
+                    .aside__option-values-list-link {
+                        &:before,&:after {
+                            content: none;
+                        }
+                    }
+                }
+            }
+        }
+        &-input {
+            color: $main-color;
+            font-weight: 700;
+            font-size: 24px;
+            width: auto;
+        }
+        &-field {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            margin-bottom: 14px;
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+.option-model {
+    height: 264px;
+    overflow-Y: auto;
+    .mCSB_inside > .mCSB_container {
+        margin-right: 20px;
+    }
+    .mCSB_scrollTools {
+        border: 1px solid $border-color;
+        border-radius: 5px;
+        background-color: #fff;
+        .mCSB_draggerRail {
+            width: 14px;
+            background-color: #fff;
+        }
+        .mCSB_dragger {
+            height: 60px!important;
+            .mCSB_dragger_bar {
+                width: 14px;
+                height: 60px;
+                border-radius: 5px;
+                background-color: $accent-color;
+                &:after {
+                    content: '';
+                    display: block;
+                    @include center;
+                    @include bg($threeline);
+                }
+            }
+        }
+    }
+}
+
+.aside-mobile-btn {
+    @extend .std-btn-inverse;
+    display: none;
+}

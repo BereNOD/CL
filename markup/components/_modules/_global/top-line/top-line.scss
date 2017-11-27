@@ -1,0 +1,59 @@
+// top-line
+// ==================================================
+
+.top-line {
+    background-color: #6a6a6a;
+    height: 40px;
+    top: 0;
+    &__inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    &__phone {
+        display: flex;
+        &-text {
+            display: block;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 27px;
+            margin-right: 5px;
+        }
+        &-link {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 27px;
+            display: block;
+            transition: color $color-time;
+            &:hover,&:focus,&:active {
+                color: $accent-color;
+            }
+        }
+    }
+    &__list {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        height: 40px;
+        &-item {
+            height: 40px;
+            display: flex;
+            align-items: center;
+        }
+        &-link {
+            display: block;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 40px;
+            padding: 0 14px;
+            transition: color $color-time, background-color $color-time;
+            &:hover,&:focus, &.is-active {
+                color: $accent-color;
+                background-color: #fff;
+            }
+        }
+    }
+}
