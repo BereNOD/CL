@@ -1,3 +1,32 @@
+$constructor_colors: (
+	'black':'Black',
+	'chocolate':'Chocolate',
+	'gold':'Gold',
+	'gray':'Gray',
+	'ivory':'Ivory',
+	'navy':'Navy',
+	'olive':'Olive',
+	'orange':'Orange',
+	'purple':'Purple',
+	'red':'Red',
+	'sky':'Sky',
+	'yellow':'Yellow'
+);
+
+$constructor_colors_HEX: (
+	'black':'#000000',
+	'chocolate':'#3b201a',
+	'gold':'#f0e1b7',
+	'gray':'#717175',
+	'ivory':'#f4f3e5',
+	'navy':'#3a5679',
+	'olive':'#666c49',
+	'orange':'#fd8b42',
+	'purple':'#7a4d78',
+	'red':'#e03943',
+	'sky':'#aacddb',
+	'yellow':'#ffe649'
+);
 @import "spectrum";
 
 .canvas-block {
@@ -189,50 +218,25 @@
 						background-color: $border-color;
 						border: 1px solid transparent;
 						&--velvet {
-							background-color: #ff0000;
+							background-color: #e03943;
 						}
 						&--cover {
-							background-color: #8c5a0b;
+							background-color: #3b201a;
 						}
 						&--spine {
-							background-color: #8c5a0b;
+							background-color: #3b201a;
 						}
 						&--thread {
-							background-color: #ff0000;
+							background-color: #e03943;
 						}
 						&--velvet,
 						&--cover,
 						&--spine,
 						&--thread {
-							&.white {
-								background-color: #ffffff;
-							}
-							&.darkgrey {
-								background-color: #808080;
-							}
-							&.black {
-								background-color: #000000;
-							}
-							&.red {
-								background-color: #e62020;
-							}
-							&.blue {
-								background-color: #209ee6;
-							}
-							&.green {
-								background-color: #159318;
-							}
-							&.yellow {
-								background-color: #f5f325;
-							}
-							&.orange {
-								background-color: #e69920;
-							}
-							&.purple {
-								background-color: #c418de;
-							}
-							&.brown {
-								background-color: #8c5a0b;
+							@each $title, $color in $constructor_colors_HEX {
+								&.#{$title} {
+									background-color: #{$color};
+								}
 							}
 						}
 					}
@@ -372,64 +376,12 @@
 						position: absolute;
 						z-index: 100;
 						transform: rotate(-90deg);
-						&.white {
-							background-image: url('../../static/img/content/state-1/phone/spines/Layer 5.png');
-							& ~ #zipper-slider {
-								background-image: url('../../static/img/content/state-1/zipper-slider/10.png');
-							}
-						}
-						&.darkgrey {
-							background-image: url('../../static/img/content/state-1/phone/spines/Layer 7.png');
-							& ~ #zipper-slider {
-								background-image: url('../../static/img/content/state-1/zipper-slider/2.png');
-							}
-						}
-						&.black {
-							background-image: url('../../static/img/content/state-1/phone/spines/Layer 0.png');
-							& ~ #zipper-slider {
-								background-image: url('../../static/img/content/state-1/zipper-slider/1.png');
-							}
-						}
-						&.red {
-							background-image: url('../../static/img/content/state-1/phone/spines/Layer 3.png');
-							& ~ #zipper-slider {
-								background-image: url('../../static/img/content/state-1/zipper-slider/3.png');
-							}
-						}
-						&.blue {
-							background-image: url('../../static/img/content/state-1/phone/spines/Layer 9.png');
-							& ~ #zipper-slider {
-								background-image: url('../../static/img/content/state-1/zipper-slider/11.png');
-							}
-						}
-						&.green {
-							background-image: url('../../static/img/content/state-1/phone/spines/Layer 8.png');
-							& ~ #zipper-slider {
-								background-image: url('../../static/img/content/state-1/zipper-slider/7.png');
-							}
-						}
-						&.yellow {
-							background-image: url('../../static/img/content/state-1/phone/spines/Layer 4.png');
-							& ~ #zipper-slider {
-								background-image: url('../../static/img/content/state-1/zipper-slider/4.png');
-							}
-						}
-						&.orange {
-							background-image: url('../../static/img/content/state-1/phone/spines/Layer 6.png');
-							& ~ #zipper-slider {
-								background-image: url('../../static/img/content/state-1/zipper-slider/5.png');
-							}
-						}
-						&.purple {
-							background-image: url('../../static/img/content/state-1/phone/spines/Layer 2.png');
-							& ~ #zipper-slider {
-								background-image: url('../../static/img/content/state-1/zipper-slider/12.png');
-							}
-						}
-						&.brown {
-							background-image: url('../../static/img/content/state-1/phone/spines/Layer 10.png');
-							& ~ #zipper-slider {
-								background-image: url('../../static/img/content/state-1/zipper-slider/6.png');
+						@each $title, $color in $constructor_colors {
+							&.#{$title} {
+								background-image: url('../../static/img/content/state-1/phone/spines/#{$color}.png');
+								& ~ #zipper-slider {
+									background-image: url('../../static/img/content/state-1/zipper-slider/#{$color}.png');
+								}
 							}
 						}
 					}
@@ -439,64 +391,12 @@
 						position: absolute;
 						z-index: 100;
 						transform: rotate(-90deg);
-						&.white {
-							background-image: url('../../static/img/content/state-1/tablet/spines/Layer 11.png');
-							& ~ #zipper-slider {
-								background-image: url('../../static/img/content/state-1/zipper-slider/10.png');
-							}
-						}
-						&.darkgrey {
-							background-image: url('../../static/img/content/state-1/tablet/spines/Layer 10.png');
-							& ~ #zipper-slider {
-								background-image: url('../../static/img/content/state-1/zipper-slider/2.png');
-							}
-						}
-						&.black {
-							background-image: url('../../static/img/content/state-1/tablet/spines/Layer 7.png');
-							& ~ #zipper-slider {
-								background-image: url('../../static/img/content/state-1/zipper-slider/1.png');
-							}
-						}
-						&.red {
-							background-image: url('../../static/img/content/state-1/tablet/spines/Layer 2.png');
-							& ~ #zipper-slider {
-								background-image: url('../../static/img/content/state-1/zipper-slider/3.png');
-							}
-						}
-						&.blue {
-							background-image: url('../../static/img/content/state-1/tablet/spines/Layer 6.png');
-							& ~ #zipper-slider {
-								background-image: url('../../static/img/content/state-1/zipper-slider/11.png');
-							}
-						}
-						&.green {
-							background-image: url('../../static/img/content/state-1/tablet/spines/Layer 4.png');
-							& ~ #zipper-slider {
-								background-image: url('../../static/img/content/state-1/zipper-slider/7.png');
-							}
-						}
-						&.yellow {
-							background-image: url('../../static/img/content/state-1/tablet/spines/Layer 12.png');
-							& ~ #zipper-slider {
-								background-image: url('../../static/img/content/state-1/zipper-slider/4.png');
-							}
-						}
-						&.orange {
-							background-image: url('../../static/img/content/state-1/tablet/spines/Layer 3.png');
-							& ~ #zipper-slider {
-								background-image: url('../../static/img/content/state-1/zipper-slider/5.png');
-							}
-						}
-						&.purple {
-							background-image: url('../../static/img/content/state-1/tablet/spines/Layer 9.png');
-							& ~ #zipper-slider {
-								background-image: url('../../static/img/content/state-1/zipper-slider/12.png');
-							}
-						}
-						&.brown {
-							background-image: url('../../static/img/content/state-1/tablet/spines/Layer 7.png');
-							& ~ #zipper-slider {
-								background-image: url('../../static/img/content/state-1/zipper-slider/6.png');
+						@each $title, $color in $constructor_colors {
+							&.#{$title} {
+								background-image: url('../../static/img/content/state-1/tablet/spines/#{$color}.png');
+								& ~ #zipper-slider {
+									background-image: url('../../static/img/content/state-1/zipper-slider/#{$color}.png');
+								}
 							}
 						}
 					}
@@ -506,64 +406,12 @@
 						position: absolute;
 						z-index: 100;
 						transform: rotate(-90deg);
-						&.white {
-							background-image: url('../../static/img/content/state-1/laptop/spines/Layer 8.png');
-							& ~ #zipper-slider {
-								background-image: url('../../static/img/content/state-1/zipper-slider/10.png');
-							}
-						}
-						&.darkgrey {
-							background-image: url('../../static/img/content/state-1/laptop/spines/Layer 3.png');
-							& ~ #zipper-slider {
-								background-image: url('../../static/img/content/state-1/zipper-slider/2.png');
-							}
-						}
-						&.black {
-							background-image: url('../../static/img/content/state-1/laptop/spines/Layer 0.png');
-							& ~ #zipper-slider {
-								background-image: url('../../static/img/content/state-1/zipper-slider/1.png');
-							}
-						}
-						&.red {
-							background-image: url('../../static/img/content/state-1/laptop/spines/Layer 2.png');
-							& ~ #zipper-slider {
-								background-image: url('../../static/img/content/state-1/zipper-slider/3.png');
-							}
-						}
-						&.blue {
-							background-image: url('../../static/img/content/state-1/laptop/spines/Layer 5.png');
-							& ~ #zipper-slider {
-								background-image: url('../../static/img/content/state-1/zipper-slider/11.png');
-							}
-						}
-						&.green {
-							background-image: url('../../static/img/content/state-1/laptop/spines/Layer 9.png');
-							& ~ #zipper-slider {
-								background-image: url('../../static/img/content/state-1/zipper-slider/7.png');
-							}
-						}
-						&.yellow {
-							background-image: url('../../static/img/content/state-1/laptop/spines/Layer 1.png');
-							& ~ #zipper-slider {
-								background-image: url('../../static/img/content/state-1/zipper-slider/4.png');
-							}
-						}
-						&.orange {
-							background-image: url('../../static/img/content/state-1/laptop/spines/Layer 10.png');
-							& ~ #zipper-slider {
-								background-image: url('../../static/img/content/state-1/zipper-slider/5.png');
-							}
-						}
-						&.purple {
-							background-image: url('../../static/img/content/state-1/laptop/spines/Layer 4.png');
-							& ~ #zipper-slider {
-								background-image: url('../../static/img/content/state-1/zipper-slider/12.png');
-							}
-						}
-						&.brown {
-							background-image: url('../../static/img/content/state-1/laptop/spines/Layer 11.png');
-							& ~ #zipper-slider {
-								background-image: url('../../static/img/content/state-1/zipper-slider/6.png');
+						@each $title, $color in $constructor_colors {
+							&.#{$title} {
+								background-image: url('../../static/img/content/state-1/laptop/spines/#{$color}.png');
+								& ~ #zipper-slider {
+									background-image: url('../../static/img/content/state-1/zipper-slider/#{$color}.png');
+								}
 							}
 						}
 					}
@@ -582,103 +430,28 @@
 				}
 				&[device="phone"] {
 					.books-spine {
-						&.white {
-							background-image: url('../../static/img/content/state-2/phone/spines/Layer 7.png');
-						}
-						&.darkgrey {
-							background-image: url('../../static/img/content/state-2/phone/spines/Layer 6.png');
-						}
-						&.black {
-							background-image: url('../../static/img/content/state-2/phone/spines/Layer 0.png');
-						}
-						&.red {
-							background-image: url('../../static/img/content/state-2/phone/spines/Layer 5.png');
-						}
-						&.blue {
-							background-image: url('../../static/img/content/state-2/phone/spines/Layer 8.png');
-						}
-						&.green {
-							background-image: url('../../static/img/content/state-2/phone/spines/Layer 10.png');
-						}
-						&.yellow {
-							background-image: url('../../static/img/content/state-2/phone/spines/Layer 3.png');
-						}
-						&.orange {
-							background-image: url('../../static/img/content/state-2/phone/spines/Layer 4.png');
-						}
-						&.purple {
-							background-image: url('../../static/img/content/state-2/phone/spines/Layer 8.png');
-						}
-						&.brown {
-							background-image: url('../../static/img/content/state-2/phone/spines/Layer 11.png');
+						@each $title, $color in $constructor_colors {
+							&.#{$title} {
+								background-image: url('../../static/img/content/state-2/phone/spines/#{$color}.png');
+							}
 						}
 					}
 				}
 				&[device="tablet"] {
 					.books-spine {
-						&.white {
-							background-image: url('../../static/img/content/state-2/tablet/spines/Layer 5.png');
-						}
-						&.darkgrey {
-							background-image: url('../../static/img/content/state-2/tablet/spines/Layer 4.png');
-						}
-						&.black {
-							background-image: url('../../static/img/content/state-2/tablet/spines/Layer 1.png');
-						}
-						&.red {
-							background-image: url('../../static/img/content/state-2/tablet/spines/Layer 2.png');
-						}
-						&.blue {
-							background-image: url('../../static/img/content/state-2/tablet/spines/Layer 9.png');
-						}
-						&.green {
-							background-image: url('../../static/img/content/state-2/tablet/spines/Layer 11.png');
-						}
-						&.yellow {
-							background-image: url('../../static/img/content/state-2/tablet/spines/Layer 3.png');
-						}
-						&.orange {
-							background-image: url('../../static/img/content/state-2/tablet/spines/Layer 12.png');
-						}
-						&.purple {
-							background-image: url('../../static/img/content/state-2/tablet/spines/Layer 6.png');
-						}
-						&.brown {
-							background-image: url('../../static/img/content/state-2/tablet/spines/Layer 8.png');
+						@each $title, $color in $constructor_colors {
+							&.#{$title} {
+								background-image: url('../../static/img/content/state-2/tablet/spines/#{$color}.png');
+							}
 						}
 					}
 				}
 				&[device="laptop"] {
 					.books-spine {
-						&.white {
-							background-image: url('../../static/img/content/state-2/laptop/spines/Layer 4.png');
-						}
-						&.darkgrey {
-							background-image: url('../../static/img/content/state-2/laptop/spines/Layer 9.png');
-						}
-						&.black {
-							background-image: url('../../static/img/content/state-2/laptop/spines/Layer 2.png');
-						}
-						&.red {
-							background-image: url('../../static/img/content/state-2/laptop/spines/Layer 8.png');
-						}
-						&.blue {
-							background-image: url('../../static/img/content/state-2/laptop/spines/Layer 10.png');
-						}
-						&.green {
-							background-image: url('../../static/img/content/state-2/laptop/spines/Layer 1.png');
-						}
-						&.yellow {
-							background-image: url('../../static/img/content/state-2/laptop/spines/Layer 5.png');
-						}
-						&.orange {
-							background-image: url('../../static/img/content/state-2/laptop/spines/Layer 11.png');
-						}
-						&.purple {
-							background-image: url('../../static/img/content/state-2/laptop/spines/Layer 6.png');
-						}
-						&.brown {
-							background-image: url('../../static/img/content/state-2/laptop/spines/Layer 12.png');
+						@each $title, $color in $constructor_colors {
+							&.#{$title} {
+								background-image: url('../../static/img/content/state-2/laptop/spines/#{$color}.png');
+							}
 						}
 					}
 				}
@@ -703,35 +476,10 @@
 						background-repeat: no-repeat;
 						width: 400px;
 						transform: rotate(-1deg);
-						&.white {
-							background-image: url('../../static/img/content/state-3/phone/spines/Layer 5.png');
-						}
-						&.darkgrey {
-							background-image: url('../../static/img/content/state-3/phone/spines/Layer 0.png');
-						}
-						&.black {
-							background-image: url('../../static/img/content/state-3/phone/spines/Layer 12.png');
-						}
-						&.red {
-							background-image: url('../../static/img/content/state-3/phone/spines/Layer 13.png');
-						}
-						&.blue {
-							background-image: url('../../static/img/content/state-3/phone/spines/Layer 9.png');
-						}
-						&.green {
-							background-image: url('../../static/img/content/state-3/phone/spines/Layer 7.png');
-						}
-						&.yellow {
-							background-image: url('../../static/img/content/state-3/phone/spines/Layer 6.png');
-						}
-						&.orange {
-							background-image: url('../../static/img/content/state-3/phone/spines/Layer 14.png');
-						}
-						&.purple {
-							background-image: url('../../static/img/content/state-3/phone/spines/Layer 3.png');
-						}
-						&.brown {
-							background-image: url('../../static/img/content/state-3/phone/spines/Layer 11.png');
+						@each $title, $color in $constructor_colors {
+							&.#{$title} {
+								background-image: url('../../static/img/content/state-3/phone/spines/#{$color}.png');
+							}
 						}
 					}
 					#zipper {
@@ -750,35 +498,10 @@
 						background-repeat: no-repeat;
 						width: 400px;
 						transform: rotateZ(-5deg) rotate(3deg);
-						&.white {
-							background-image: url('../../static/img/content/state-3/tablet/spines/Layer 2.png');
-						}
-						&.darkgrey {
-							background-image: url('../../static/img/content/state-3/tablet/spines/Layer 1.png');
-						}
-						&.black {
-							background-image: url('../../static/img/content/state-3/tablet/spines/Layer 0.png');
-						}
-						&.red {
-							background-image: url('../../static/img/content/state-3/tablet/spines/Layer 6.png');
-						}
-						&.blue {
-							background-image: url('../../static/img/content/state-3/tablet/spines/Layer 10.png');
-						}
-						&.green {
-							background-image: url('../../static/img/content/state-3/tablet/spines/Layer 8.png');
-						}
-						&.yellow {
-							background-image: url('../../static/img/content/state-3/tablet/spines/Layer 4.png');
-						}
-						&.orange {
-							background-image: url('../../static/img/content/state-3/tablet/spines/Layer 7.png');
-						}
-						&.purple {
-							background-image: url('../../static/img/content/state-3/tablet/spines/Layer 5.png');
-						}
-						&.brown {
-							background-image: url('../../static/img/content/state-3/tablet/spines/Layer 3.png');
+						@each $title, $color in $constructor_colors {
+							&.#{$title} {
+								background-image: url('../../static/img/content/state-3/tablet/spines/#{$color}.png');
+							}
 						}
 					}
 					#zipper {
@@ -798,35 +521,10 @@
 						width: 425px;
 						top: 71px;
 						left: 266px;
-						&.white {
-							background-image: url('../../static/img/content/state-3/laptop/spines/Layer 7.png');
-						}
-						&.darkgrey {
-							background-image: url('../../static/img/content/state-3/laptop/spines/Layer 13.png');
-						}
-						&.black {
-							background-image: url('../../static/img/content/state-3/laptop/spines/Layer 5.png');
-						}
-						&.red {
-							background-image: url('../../static/img/content/state-3/laptop/spines/Layer 14.png');
-						}
-						&.blue {
-							background-image: url('../../static/img/content/state-3/laptop/spines/Layer 12.png');
-						}
-						&.green {
-							background-image: url('../../static/img/content/state-3/laptop/spines/Layer 6.png');
-						}
-						&.yellow {
-							background-image: url('../../static/img/content/state-3/laptop/spines/Layer 11.png');
-						}
-						&.orange {
-							background-image: url('../../static/img/content/state-3/laptop/spines/Layer 3.png');
-						}
-						&.purple {
-							background-image: url('../../static/img/content/state-3/laptop/spines/Layer 10.png');
-						}
-						&.brown {
-							background-image: url('../../static/img/content/state-3/laptop/spines/Layer 0.png');
+						@each $title, $color in $constructor_colors {
+							&.#{$title} {
+								background-image: url('../../static/img/content/state-3/laptop/spines/#{$color}.png');
+							}
 						}
 					}
 					#zipper {
@@ -862,35 +560,10 @@
 						background-repeat: no-repeat;
 						/*transform: rotateX(-51deg);*/
 						transform: skewX(-15deg);
-						&.white {
-							background-image: url('../../static/img/content/state-4/phone/spines/Layer 3.png');
-						}
-						&.darkgrey {
-							background-image: url('../../static/img/content/state-4/phone/spines/Layer 1.png');
-						}
-						&.black {
-							background-image: url('../../static/img/content/state-4/phone/spines/Layer 2.png');
-						}
-						&.red {
-							background-image: url('../../static/img/content/state-4/phone/spines/Layer 10.png');
-						}
-						&.blue {
-							background-image: url('../../static/img/content/state-4/phone/spines/Layer 4.png');
-						}
-						&.green {
-							background-image: url('../../static/img/content/state-4/phone/spines/Layer 6.png');
-						}
-						&.yellow {
-							background-image: url('../../static/img/content/state-4/phone/spines/Layer 7.png');
-						}
-						&.orange {
-							background-image: url('../../static/img/content/state-4/phone/spines/Layer 9.png');
-						}
-						&.purple {
-							background-image: url('../../static/img/content/state-4/phone/spines/Layer 8.png');
-						}
-						&.brown {
-							background-image: url('../../static/img/content/state-4/phone/spines/Layer 11.png');
+						@each $title, $color in $constructor_colors {
+							&.#{$title} {
+								background-image: url('../../static/img/content/state-4/phone/spines/#{$color}.png');
+							}
 						}
 					}
 					#zipper {
@@ -909,35 +582,10 @@
 						background-repeat: no-repeat;
 						width: 85px;
 						transform: skewX(-10deg);
-						&.white {
-							background-image: url('../../static/img/content/state-4/tablet/spines/Layer 9.png');
-						}
-						&.darkgrey {
-							background-image: url('../../static/img/content/state-4/tablet/spines/Layer 10.png');
-						}
-						&.black {
-							background-image: url('../../static/img/content/state-4/tablet/spines/Layer 0.png');
-						}
-						&.red {
-							background-image: url('../../static/img/content/state-4/tablet/spines/Layer 1.png');
-						}
-						&.blue {
-							background-image: url('../../static/img/content/state-4/tablet/spines/Layer 5.png');
-						}
-						&.green {
-							background-image: url('../../static/img/content/state-4/tablet/spines/Layer 3.png');
-						}
-						&.yellow {
-							background-image: url('../../static/img/content/state-4/tablet/spines/Layer 11.png');
-						}
-						&.orange {
-							background-image: url('../../static/img/content/state-4/tablet/spines/Layer 2.png');
-						}
-						&.purple {
-							background-image: url('../../static/img/content/state-4/tablet/spines/Layer 8.png');
-						}
-						&.brown {
-							background-image: url('../../static/img/content/state-4/tablet/spines/Layer 6.png');
+						@each $title, $color in $constructor_colors {
+							&.#{$title} {
+								background-image: url('../../static/img/content/state-4/tablet/spines/#{$color}.png');
+							}
 						}
 					}
 					#zipper {
@@ -953,35 +601,10 @@
 						z-index: 2;
 						background-repeat: no-repeat;
 						transform: rotateX(-51deg);
-						&.white {
-							background-image: url('../../static/img/content/state-4/laptop/spines/Layer 9.png');
-						}
-						&.darkgrey {
-							background-image: url('../../static/img/content/state-4/laptop/spines/Layer 12.png');
-						}
-						&.black {
-							background-image: url('../../static/img/content/state-4/laptop/spines/Layer 0.png');
-						}
-						&.red {
-							background-image: url('../../static/img/content/state-4/laptop/spines/Layer 5.png');
-						}
-						&.blue {
-							background-image: url('../../static/img/content/state-4/laptop/spines/Layer 11.png');
-						}
-						&.green {
-							background-image: url('../../static/img/content/state-4/laptop/spines/Layer 8.png');
-						}
-						&.yellow {
-							background-image: url('../../static/img/content/state-4/laptop/spines/Layer 3.png');
-						}
-						&.orange {
-							background-image: url('../../static/img/content/state-4/laptop/spines/Layer 7.png');
-						}
-						&.purple {
-							background-image: url('../../static/img/content/state-4/laptop/spines/Layer 14.png');
-						}
-						&.brown {
-							background-image: url('../../static/img/content/state-4/laptop/spines/Layer 6.png');
+						@each $title, $color in $constructor_colors {
+							&.#{$title} {
+								background-image: url('../../static/img/content/state-4/laptop/spines/#{$color}.png');
+							}
 						}
 					}
 					#zipper {
@@ -1043,35 +666,10 @@
 						background-size: 80px 596px;
 						background-repeat: no-repeat;
 						width: 80px;
-						&.white {
-							background-image: url('../../static/img/content/state-5/phone/spines/Layer 5.png');
-						}
-						&.darkgrey {
-							background-image: url('../../static/img/content/state-5/phone/spines/Layer 7.png');
-						}
-						&.black {
-							background-image: url('../../static/img/content/state-5/phone/spines/Layer 0.png');
-						}
-						&.red {
-							background-image: url('../../static/img/content/state-5/phone/spines/Layer 3.png');
-						}
-						&.blue {
-							background-image: url('../../static/img/content/state-5/phone/spines/Layer 9.png');
-						}
-						&.green {
-							background-image: url('../../static/img/content/state-5/phone/spines/Layer 8.png');
-						}
-						&.yellow {
-							background-image: url('../../static/img/content/state-5/phone/spines/Layer 4.png');
-						}
-						&.orange {
-							background-image: url('../../static/img/content/state-5/phone/spines/Layer 6.png');
-						}
-						&.purple {
-							background-image: url('../../static/img/content/state-5/phone/spines/Layer 2.png');
-						}
-						&.brown {
-							background-image: url('../../static/img/content/state-5/phone/spines/Layer 10.png');
+						@each $title, $color in $constructor_colors {
+							&.#{$title} {
+								background-image: url('../../static/img/content/state-5/phone/spines/#{$color}.png');
+							}
 						}
 					}
 					.canvas-container {
@@ -1086,35 +684,10 @@
 						background-size: 80px 596px;
 						background-repeat: no-repeat;
 						width: 80px;
-						&.white {
-							background-image: url('../../static/img/content/state-5/tablet/spines/Layer 11.png');
-						}
-						&.darkgrey {
-							background-image: url('../../static/img/content/state-5/tablet/spines/Layer 10.png');
-						}
-						&.black {
-							background-image: url('../../static/img/content/state-5/tablet/spines/Layer 1.png');
-						}
-						&.red {
-							background-image: url('../../static/img/content/state-5/tablet/spines/Layer 2.png');
-						}
-						&.blue {
-							background-image: url('../../static/img/content/state-5/tablet/spines/Layer 8.png');
-						}
-						&.green {
-							background-image: url('../../static/img/content/state-5/tablet/spines/Layer 4.png');
-						}
-						&.yellow {
-							background-image: url('../../static/img/content/state-5/tablet/spines/Layer 12.png');
-						}
-						&.orange {
-							background-image: url('../../static/img/content/state-5/tablet/spines/Layer 3.png');
-						}
-						&.purple {
-							background-image: url('../../static/img/content/state-5/tablet/spines/Layer 9.png');
-						}
-						&.brown {
-							background-image: url('../../static/img/content/state-5/tablet/spines/Layer 7.png');
+						@each $title, $color in $constructor_colors {
+							&.#{$title} {
+								background-image: url('../../static/img/content/state-5/tablet/spines/#{$color}.png');
+							}
 						}
 					}
 					.canvas-container {
@@ -1129,35 +702,10 @@
 						background-size: 80px 596px;
 						background-repeat: no-repeat;
 						width: 80px;
-						&.white {
-							background-image: url('../../static/img/content/state-5/laptop/spines/Layer 8.png');
-						}
-						&.darkgrey {
-							background-image: url('../../static/img/content/state-5/laptop/spines/Layer 11.png');
-						}
-						&.black {
-							background-image: url('../../static/img/content/state-5/laptop/spines/Layer 0.png');
-						}
-						&.red {
-							background-image: url('../../static/img/content/state-5/laptop/spines/Layer 2.png');
-						}
-						&.blue {
-							background-image: url('../../static/img/content/state-5/laptop/spines/Layer 5.png');
-						}
-						&.green {
-							background-image: url('../../static/img/content/state-5/laptop/spines/Layer 9.png');
-						}
-						&.yellow {
-							background-image: url('../../static/img/content/state-5/laptop/spines/Layer 1.png');
-						}
-						&.orange {
-							background-image: url('../../static/img/content/state-5/laptop/spines/Layer 10.png');
-						}
-						&.purple {
-							background-image: url('../../static/img/content/state-5/laptop/spines/Layer 4.png');
-						}
-						&.brown {
-							background-image: url('../../static/img/content/state-5/laptop/spines/Layer 11.png');
+						@each $title, $color in $constructor_colors {
+							&.#{$title} {
+								background-image: url('../../static/img/content/state-5/laptop/spines/#{$color}.png');
+							}
 						}
 					}
 					.canvas-container {
@@ -1465,28 +1013,28 @@
 			img {
 				display: none;
 			}
-			&:hover {
-				[device="item__img"]-bg {
-					display: block;
-				}
-				[device="item__img"]-text {
-					color: $accent-color-2;
-				}
-				[device="item__img"]-inner {
-					&--phone {
-						&:after {
-							@include bg($mobile-bg_hover);
-						}
+		}
+		&:hover {
+			.device-item__img-bg {
+				display: block;
+			}
+			.device-item__img-text {
+				color: $accent-color-2;
+			}
+			.device-item__img-inner {
+				&--phone {
+					&:after {
+						@include bg($mobile-bg_hover);
 					}
-					&--tablet {
-						&:after {
-							@include bg($tablet-bg_hover);
-						}
+				}
+				&--tablet {
+					&:after {
+						@include bg($tablet-bg_hover);
 					}
-					&--laptop {
-						&:after {
-							@include bg($laptop-bg_hover);
-						}
+				}
+				&--laptop {
+					&:after {
+						@include bg($laptop-bg_hover);
 					}
 				}
 			}

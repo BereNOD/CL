@@ -6,6 +6,20 @@
 	//  - hide preloader
 	var DEBUG = true;
 
+	var constructorRequest = function ( data ) {
+		return {
+			url: location.origin + '/index.php?route=constructor/constructor/validate',
+			method: 'POST',
+			data: data,
+			success: function ( response ) {
+				console.log( response );
+			},
+			error: function () {
+				console.log( arguments );
+			}
+		};
+	};
+
 	var deviceBlock = d.querySelector('.device-block'),
 	$deviceBlock_items = deviceBlock.querySelectorAll('.device-item'),
 	changeDevice = d.querySelector('.canvas-block__controls-btn--change'),
@@ -54,82 +68,85 @@
 	});
 
 	var topBottom = new Image();
+	topBottom.onload = function() {
+		bottomTop.src = 'static/img/content/controls/bottom-top.png';
+	}
 	topBottom.src = 'static/img/content/controls/top-bottom.png';
 
 	var bottomTop = new Image();
-	bottomTop.src = 'static/img/content/controls/bottom-top.png';
+	bottomTop.onload = function() {
+		rotate.src = 'static/img/content/controls/rotate.png';
+	}
+	
 
-	var rotate = new Image(), rotateLeft, rotateTop;
-	rotate.src = 'static/img/content/controls/rotate.png';
+	var rotate = new Image();
+	rotate.onload = function() {
+		fabric.Object.prototype.drawControls = function (ctx) {
 
-	fabric.Object.prototype.drawControls = function (ctx) {
+			if (!this.hasControls) {
+				return this;
+			}
 
-		if (!this.hasControls) {
+			var wh = this._calculateCurrentDimensions(),
+			width = wh.x,
+			height = wh.y,
+			scaleOffset = this.cornerSize,
+			left = -(width + scaleOffset) / 2,
+			top = -(height + scaleOffset) / 2,
+			methodName = this.transparentCorners ? 'stroke' : 'fill';
+
+			ctx.save();
+			ctx.strokeStyle = ctx.fillStyle = this.cornerColor;
+			if (!this.transparentCorners) {
+				ctx.strokeStyle = this.cornerStrokeColor;
+			}
+			this._setLineDash(ctx, this.cornerDashArray, null);
+
+			// top-left
+			ctx.drawImage(topBottom, left, top, 19, 19);
+			// bottom-right
+			ctx.drawImage(topBottom, left + width, top + height, 19, 19);
+
+			// top-right
+			ctx.drawImage(bottomTop, left + width, top, 19, 19);
+			// bottom-left
+			ctx.drawImage(bottomTop, left, top + height, 19, 19);
+
+			if ( !this.get('lockUniScaling')) {
+
+				// middle-top
+				this._drawControl('mt', ctx, methodName,
+					left + width / 2,
+					top);
+
+				// middle-bottom
+				this._drawControl('mb', ctx, methodName,
+					left + width / 2,
+					top + height);
+
+				// middle-right
+				this._drawControl('mr', ctx, methodName,
+					left + width,
+					top + height / 2);
+
+				// middle-left
+				this._drawControl('ml', ctx, methodName,
+					left,
+					top + height / 2);
+			}
+
+			// middle-top-rotate
+			if (this.hasRotatingPoint) {
+				var rotateLeft = left + width / 2;
+				var rotateTop = top - this.rotatingPointOffset;
+				ctx.drawImage(rotate, rotateLeft - 2, rotateTop, 20, 20);
+			}
+
+			ctx.restore();
+
 			return this;
+
 		}
-
-		var wh = this._calculateCurrentDimensions(),
-		width = wh.x,
-		height = wh.y,
-		scaleOffset = this.cornerSize,
-		left = -(width + scaleOffset) / 2,
-		top = -(height + scaleOffset) / 2,
-		methodName = this.transparentCorners ? 'stroke' : 'fill';
-
-		ctx.save();
-		ctx.strokeStyle = ctx.fillStyle = this.cornerColor;
-		if (!this.transparentCorners) {
-			ctx.strokeStyle = this.cornerStrokeColor;
-		}
-		this._setLineDash(ctx, this.cornerDashArray, null);
-
-		// top-left
-		ctx.drawImage(topBottom, left, top, 19, 19);
-
-		// top-right
-		ctx.drawImage(bottomTop, left + width, top, 19, 19);
-
-		// bottom-left
-		ctx.drawImage(bottomTop, left, top + height, 19, 19);
-
-		// bottom-right
-		ctx.drawImage(topBottom, left + width, top + height, 19, 19);
-
-		if ( !this.get('lockUniScaling')) {
-
-			// middle-top
-			this._drawControl('mt', ctx, methodName,
-				left + width / 2,
-				top);
-
-			// middle-bottom
-			this._drawControl('mb', ctx, methodName,
-				left + width / 2,
-				top + height);
-
-			// middle-right
-			this._drawControl('mr', ctx, methodName,
-				left + width,
-				top + height / 2);
-
-			// middle-left
-			this._drawControl('ml', ctx, methodName,
-				left,
-				top + height / 2);
-		}
-
-		// middle-top-rotate
-		if (this.hasRotatingPoint) {
-			
-			rotateLeft = left + width / 2;
-			rotateTop = top - this.rotatingPointOffset;
-			ctx.drawImage(rotate, rotateLeft - 2, rotateTop, 20, 20);
-		}
-
-		ctx.restore();
-
-		return this;
-
 	}
 
 	window.device = '';
@@ -138,81 +155,81 @@
 	canvasHeight = 662,
 	defaultCanvasWidth = 480,
 	defaultCanvasHeight = 662,
-			resizeOverlayCheckpoint = 750; // screen width for overlay scale conversion (in px)
+	resizeOverlayCheckpoint = 750; // screen width for overlay scale conversion (in px)
 
-			var projections = {
-				spineElement: d.getElementById('spine'),
-				zipperElement: d.getElementById('zipper'),
-				zipperSliderElement: d.getElementById('zipper-slider'),
-				backfaceElement: d.getElementById('backface'),
-				'1': {
-					spine: {
-						imageWidth: 1641,
-						imageHeight: 139,
-						proportion: 1
-					},
-					slider: {
-						imageWidth: 1137,
-						imageHeight: 864,
-						proportion: 1
-					}
-				},
-				'2': {
-					spine: {
-						imageWidth: 1739,
-						imageHeight: 242,
-						proportion: 1
-					}
-				},
-				'3': {
-					spine: {
-						imageWidth: 1230,
-						imageHeight: 695,
-						proportion: 1
-					},
-					zipper: {
-						imageWidth: 1045,
-						imageHeight: 962,
-						proportion: 1
-					}
-				},
-				'4': {
-					spine: {
-						imageWidth: 274,
-						imageHeight: 1122,
-						proportion: 1
-					},
-					zipper: {
-						imageWidth: 1779,
-						imageHeight: 441,
-						proportion: 1
-					}
-				},
-				'5': {
-					spine: {
-						imageWidth: 139,
-						imageHeight: 1641,
-						proportion: 1
-					},
-					backface: {
-						imageWidth: canvasWidth,
-						imageHeight: canvasHeight,
-						proportion: 1
-					}
-				}
+	var projections = {
+		spineElement: d.getElementById('spine'),
+		zipperElement: d.getElementById('zipper'),
+		zipperSliderElement: d.getElementById('zipper-slider'),
+		backfaceElement: d.getElementById('backface'),
+		'1': {
+			spine: {
+				imageWidth: 1641,
+				imageHeight: 139,
+				proportion: 1
+			},
+			slider: {
+				imageWidth: 1137,
+				imageHeight: 864,
+				proportion: 1
 			}
+		},
+		'2': {
+			spine: {
+				imageWidth: 1739,
+				imageHeight: 242,
+				proportion: 1
+			}
+		},
+		'3': {
+			spine: {
+				imageWidth: 1230,
+				imageHeight: 695,
+				proportion: 1
+			},
+			zipper: {
+				imageWidth: 1045,
+				imageHeight: 962,
+				proportion: 1
+			}
+		},
+		'4': {
+			spine: {
+				imageWidth: 274,
+				imageHeight: 1122,
+				proportion: 1
+			},
+			zipper: {
+				imageWidth: 1779,
+				imageHeight: 441,
+				proportion: 1
+			}
+		},
+		'5': {
+			spine: {
+				imageWidth: 139,
+				imageHeight: 1641,
+				proportion: 1
+			},
+			backface: {
+				imageWidth: canvasWidth,
+				imageHeight: canvasHeight,
+				proportion: 1
+			}
+		}
+	}
 
-			projections['1'].spine.proportion = projections['1'].spine.imageHeight / projections['1'].spine.imageWidth;
-			projections['1'].slider.proportion = projections['1'].slider.imageWidth / projections['1'].slider.imageHeight;
-			projections['2'].spine.proportion = projections['2'].spine.imageHeight / projections['2'].spine.imageWidth;
-			projections['3'].spine.proportion = projections['3'].spine.imageHeight / projections['3'].spine.imageWidth;
-			projections['3'].zipper.proportion = projections['3'].zipper.imageWidth / projections['3'].zipper.imageHeight;
-			projections['4'].spine.proportion = projections['4'].spine.imageWidth / projections['4'].spine.imageHeight;
-			projections['3'].zipper.proportion = projections['3'].zipper.imageWidth / projections['3'].zipper.imageHeight;
-			projections['5'].spine.proportion = projections['5'].spine.imageWidth / projections['5'].spine.imageHeight;
-			projections['5'].backface.proportion = projections['5'].backface.imageWidth / projections['5'].backface.imageHeight;
+	projections['1'].spine.proportion = projections['1'].spine.imageHeight / projections['1'].spine.imageWidth;
+	projections['1'].slider.proportion = projections['1'].slider.imageWidth / projections['1'].slider.imageHeight;
+	projections['2'].spine.proportion = projections['2'].spine.imageHeight / projections['2'].spine.imageWidth;
+	projections['3'].spine.proportion = projections['3'].spine.imageHeight / projections['3'].spine.imageWidth;
+	projections['3'].zipper.proportion = projections['3'].zipper.imageWidth / projections['3'].zipper.imageHeight;
+	projections['4'].spine.proportion = projections['4'].spine.imageWidth / projections['4'].spine.imageHeight;
+	projections['3'].zipper.proportion = projections['3'].zipper.imageWidth / projections['3'].zipper.imageHeight;
+	projections['5'].spine.proportion = projections['5'].spine.imageWidth / projections['5'].spine.imageHeight;
+	projections['5'].backface.proportion = projections['5'].backface.imageWidth / projections['5'].backface.imageHeight;
 
-			responsive();
+	responsive();
 
 	window.overlay = { // (in px)
 		objectTitles: ['top', 'bottom', 'left', 'right', 'middle'],
@@ -389,18 +406,10 @@
 	// Clear button event: click handler
 	function _clear ( /*[Object] event*/ e ) {
 		e.preventDefault();
-		var obj = cnv.getActiveObject();
-		cnv.remove(obj);
-		cnv.remove(obj);
-		if( is_text(obj) ) {
-			closeEditTextBar();
-			window.$textObjects.splice(window.$textObjects.indexOf(obj), 1);
-		}
-		else if ( is_image(obj) ) {
-			window.$imageObjects.splice(window.$imageObjects.indexOf(obj), 1);
-		}
-		cnv.discardActiveObject();
-		cnv.renderAll(); 
+		cnv.clear();
+		window.$textObjects = [];
+		window.$imageObjects = [];
+		renderSpine();
 		setObjectsOrder();
 		return false;
 	}
@@ -409,14 +418,30 @@
 	function _delete ( /*[Object] event*/ e ) {
 		var e = e || event;
 		if ( 46 === e.keyCode ) {
-			_clear ( e );
+			var obj = cnv.getActiveObject();
+			if ( obj ) {
+				cnv.remove(obj);
+				cnv.remove(obj);
+				if( is_text(obj) ) {
+					closeEditTextBar();
+					window.$textObjects.splice(window.$textObjects.indexOf(obj), 1);
+				}
+				else if ( is_image(obj) ) {
+					window.$imageObjects.splice(window.$imageObjects.indexOf(obj), 1);
+				}
+				cnv.discardActiveObject();
+				cnv.renderAll(); 
+				setObjectsOrder();
+			}
 		}
 	}
 
 	// Next button event: click handler
 	function _next ( /*[Object] event*/ e ) {
 		e.preventDefault();
-		iMakePhotos( e );
+		iMakePhotos( e, function(){
+			console.log('test');
+		});
 		return false;
 	}
 
@@ -455,7 +480,7 @@
 
 					if ( tempImg.width > canvasWidth || tempImg.height > canvasHeight ) {
 						var scaleX = canvasWidth / tempImg.width,
-								scaleY = canvasHeight / tempImg.height;
+						scaleY = canvasHeight / tempImg.height;
 
 						scale = ( scaleX > scaleY )? scaleY: scaleX;
 						image.set({
@@ -463,6 +488,48 @@
 							scaleX: scale * 0.8,
 						});
 					}
+
+					var minScaleX = 0.09;
+					var minScaleY = 0.09;
+
+					image.on('scaling', function ( e ) {
+						var scaleX = this.scaleX;
+						var scaleY = this.scaleY;
+						var left = this.left;
+						var top = this.top;
+						var lastGoodLeft = this.lastGoodLeft;
+						var lastGoodTop = this.lastGoodTop;
+						if ( scaleX && scaleY && left && top ) {
+							window.tmp_object_values.set('scaleX', scaleX);
+							window.tmp_object_values.set('scaleY', scaleY);
+							window.tmp_object_values.set('left', left);
+							window.tmp_object_values.set('top', top);
+							window.tmp_object_values.set('lastGoodLeft', lastGoodLeft);
+							window.tmp_object_values.set('lastGoodTop', lastGoodTop);
+						}
+						else {
+							if(scaleX && this.scaleX < minScaleX) {
+								this.scaleX = minScaleX;
+								this.scaleY = minScaleY;
+								this.left = this.lastGoodLeft;
+								this.top = this.lastGoodTop;
+							}
+							else {
+								this.scaleX = window.tmp_object_values.get('scaleX');
+								this.scaleY = window.tmp_object_values.get('scaleY');
+								this.left = window.tmp_object_values.get('left');
+								this.top = window.tmp_object_values.get('top');
+							}
+							if (lastGoodLeft && lastGoodTop) {
+								this.lastGoodTop = this.top;
+								this.lastGoodLeft = this.left;
+							}
+							else {
+								this.lastGoodTop = window.tmp_object_values.get('top');
+								this.lastGoodLeft = window.tmp_object_values.get('left');
+							}
+						}
+					});
 
 					image.setControlsVisibility({'mr': false, 'ml': false, 'mt': false, 'mb': false});
 
@@ -476,6 +543,44 @@
 					image.baseTop = image.top;
 					image.baseLeft = image.left;
 					image.baseScale = image.scaleX;
+
+					// base size parts
+					image.size = {
+						width: image.width,
+						height: image.height,
+						conversion: function () {
+							var k = canvasWidth / defaultCanvasWidth;
+							image.width = this.width * k;
+							image.height = this.height * k;
+						}
+					};
+
+					// base position parts
+					image.position = {
+						// top
+						overlayOffsetY: overlay['top'].height(cnv.height),
+						canvasOffsetY: image.top - overlay['top'].height(cnv.height),
+						// left
+						overlayOffsetX: overlay['left'].width(cnv.width),
+						canvasOffsetX: image.left - overlay['left'].width(cnv.width),
+						scaleOffsetX: function (scale) {
+							this.canvasOffsetX = this.canvasOffsetX * scale;
+						},
+						scaleOffsetY: function (scale) {
+							this.canvasOffsetY = this.canvasOffsetY * scale;
+						},
+						conversionOffsetX: function () {
+							this.canvasOffsetX = image.left - overlay['left'].width(cnv.width);
+						},
+						conversionOffsetY: function () {
+							this.canvasOffsetY = image.top - overlay['top'].height(cnv.height);
+						},
+						conversionOverlayOffset: function () {
+							this.overlayOffsetY = overlay['top'].height(cnv.height);
+							this.overlayOffsetX = overlay['left'].width(cnv.width);
+						}
+					};
+					_windowResize();
 				};
 			};
 		} else {
@@ -520,6 +625,7 @@
 
 	// Edit text block Apply button event: click handler
 	function _editTextBlockApply ( /*[Object] event*/ e ) {
+		window.tmp_object_values = undefined;
 		var activeObject = cnv.getActiveObject();
 		if ( this === cnv || activeObject ) {
 
@@ -555,12 +661,101 @@
 			});
 			text.setControlsVisibility({'mr': false, 'ml': false, 'mt': false, 'mb': false});
 
+			var minScaleX = 0.09;
+			var minScaleY = 0.09;
+
+			text.on('scaling', function ( e ) {
+				var scaleX = this.scaleX;
+				var scaleY = this.scaleY;
+				var left = this.left;
+				var top = this.top;
+				var lastGoodLeft = this.lastGoodLeft;
+				var lastGoodTop = this.lastGoodTop;
+				if ( scaleX && scaleY && left && top ) {
+					window.tmp_object_values.set('scaleX', scaleX);
+					window.tmp_object_values.set('scaleY', scaleY);
+					window.tmp_object_values.set('left', left);
+					window.tmp_object_values.set('top', top);
+					window.tmp_object_values.set('lastGoodLeft', lastGoodLeft);
+					window.tmp_object_values.set('lastGoodTop', lastGoodTop);
+
+					console.log('window.tmp_object_values', window.tmp_object_values);
+				}
+				else {
+					// window.tmp_object_values.get('scaleX');
+					// window.tmp_object_values.get('scaleY');
+					// window.tmp_object_values.get('left');
+					// window.tmp_object_values.get('top');
+					// window.tmp_object_values.get('lastGoodLeft');
+					// window.tmp_object_values.get('lastGoodTop');
+					if(scaleX && this.scaleX < minScaleX) {
+						this.scaleX = minScaleX;
+						this.scaleY = minScaleY;
+						this.left = this.lastGoodLeft;
+						this.top = this.lastGoodTop;
+					}
+					else {
+						this.scaleX = window.tmp_object_values.get('scaleX');
+						this.scaleY = window.tmp_object_values.get('scaleY');
+						this.left = window.tmp_object_values.get('left');
+						this.top = window.tmp_object_values.get('top');
+					}
+					if (lastGoodLeft && lastGoodTop) {
+						this.lastGoodTop = this.top;
+						this.lastGoodLeft = this.left;
+					}
+					else {
+						this.lastGoodTop = window.tmp_object_values.get('top');
+						this.lastGoodLeft = window.tmp_object_values.get('left');
+					}
+				}
+			});
+
+			text.on('deselected', _editTextBlockApply);
 
 			cnv.centerObject(text);
 			cnv.add(text);
 			window.$textObjects.push(text);
 			setObjectsOrder();
 			text.baseScale = text.scaleX;
+
+			// base size parts
+			text.size = {
+				width: text.width,
+				height: text.height,
+				conversion: function () {
+					var k = canvasWidth / defaultCanvasWidth;
+					text.width = this.width * k;
+					text.height = this.height * k;
+				}
+			};
+
+			// base position parts
+			text.position = {
+				// top
+				overlayOffsetY: overlay['top'].height(cnv.height),
+				canvasOffsetY: text.top - overlay['top'].height(cnv.height),
+				// left
+				overlayOffsetX: overlay['left'].width(cnv.width),
+				canvasOffsetX: text.left - overlay['left'].width(cnv.width),
+				scaleOffsetX: function (scale) {
+					this.canvasOffsetX = this.canvasOffsetX * scale;
+				},
+				scaleOffsetY: function (scale) {
+					this.canvasOffsetY = this.canvasOffsetY * scale;
+				},
+				conversionOffsetX: function () {
+					this.canvasOffsetX = text.left - overlay['left'].width(cnv.width);
+				},
+				conversionOffsetY: function () {
+					this.canvasOffsetY = text.top - overlay['top'].height(cnv.height);
+				},
+				conversionOverlayOffset: function () {
+					this.overlayOffsetY = overlay['top'].height(cnv.height);
+					this.overlayOffsetX = overlay['left'].width(cnv.width);
+				}
+			};
+			_windowResize();
 		}
 		cnv.renderAll();
 		cnv.discardActiveObject();
@@ -689,6 +884,14 @@
 
 	// Object selecting event handler
 	function _selected ( /*[Object] event*/ e ) {
+		window.tmp_object_values = {
+			set: function(key, value){
+				this[key] = value;
+			},
+			get: function(key){
+				return this[key];
+			}
+		};
 		var activeObject = cnv.getActiveObject(),
 		isText = is_text(activeObject);
 
@@ -820,6 +1023,9 @@
 			window.tmpTextProps && window.tmpTextProps.setNEW( 'top', activeObject.get('top') );
 			window.tmpTextProps && window.tmpTextProps.setNEW( 'left', activeObject.get('left') );
 		}
+
+		activeObject.position.conversionOffsetX();
+		activeObject.position.conversionOffsetY();
 	}
 
 	// Object deselecting event handler
@@ -890,17 +1096,57 @@
 
 	// Window resize handler
 	function _windowResize ( /*[Object] event*/ e ) {
-		var k = screen.availWidth / resizeOverlayCheckpoint;
-		if ( screen.availWidth <= resizeOverlayCheckpoint ) {
-			canvasHeight = defaultCanvasHeight * k;
-			canvasWidth = defaultCanvasWidth * k;
-			cnvPlace.style.maxHeight = (800 * k * 1.25) + 'px';
+		var tmp_objects = cnv._objects.slice(1, cnv._objects.length - 4), tmp_scale = 1;
+		// var tmp_width = (cnvPlace.hasAttribute('makephotos'))? 1010 : screen.availWidth;
+		if (cnvPlace.hasAttribute('makephotos')) {
+			canvasHeight = defaultCanvasHeight;
+			canvasWidth = defaultCanvasWidth;
+			cnvPlace.style.maxHeight = '';
 		}
-		else if ( cnvPlace.style.maxHeight !== '800px' ) {
-			cnvPlace.style.maxHeight = '800px';
+		else {
+			var k = cnv.width / resizeOverlayCheckpoint;
+			if ( 1 > k ) {
+				canvasHeight = defaultCanvasHeight * k;
+				canvasWidth = defaultCanvasWidth * k;
+				cnvPlace.style.maxHeight = (800 * k) + 'px';
+				
+			}
+			else if ( cnvPlace.style.maxHeight !== '800px' ) {
+				canvasHeight = defaultCanvasHeight;
+				canvasWidth = defaultCanvasWidth;
+				cnvPlace.style.maxHeight = '800px';
+			}
+		}
+
+		if ( tmp_objects.length ) {
+			for (var i = 0; i < tmp_objects.length; i++) {
+
+				if ( cnv.OLD_canvasHeight !== canvasHeight ) {
+					tmp_scale = canvasHeight / cnv.OLD_canvasHeight;
+					tmp_objects[i].position.scaleOffsetY( tmp_scale );
+					tmp_scale = 1;
+				}
+
+				if ( cnv.OLD_canvasWidth !== canvasWidth ) {
+					tmp_scale = canvasWidth / cnv.OLD_canvasWidth;
+					tmp_objects[i].position.scaleOffsetX( tmp_scale );
+					tmp_scale = 1;
+				}
+
+				tmp_objects[i].size.conversion();
+				tmp_objects[i].position.conversionOverlayOffset();
+				tmp_objects[i].position.conversionOverlayOffset();
+				tmp_objects[i].left = tmp_objects[i].position.canvasOffsetX + tmp_objects[i].position.overlayOffsetX;
+				tmp_objects[i].top = tmp_objects[i].position.canvasOffsetY + tmp_objects[i].position.overlayOffsetY;
+				// tmp_objects[i].position.conversionOffset();
+			}
 		}
 		responsive(); setOverlay(); // Two functions call (responsive and setOverlay) need for double precision,
 		responsive(); setOverlay(); // without this spine and zipper pulls are placed on canvas incorrect
+
+		cnv.OLD_canvasHeight = canvasHeight;
+		cnv.OLD_canvasWidth = canvasWidth;
+		cnv.renderAll();
 	}
 
 	// Window load handler
@@ -979,8 +1225,10 @@
 	// @return bool
 	function updateScale ( /*number*/ values, /*number*/ handle ) {
 		var activeObject = cnv.getActiveObject();
+		var scale = Number(values[handle].substr(0, values[handle].length - 1)) / 100;
 		if ( activeObject && this.target.firstChild.firstChild.firstChild.classList.contains('noUi-active') ) {
-			activeObject.scale(Number(values[handle].substr(0, values[handle].length - 1)) / 100 );
+			activeObject.scale( scale );
+			window.tmpTextProps && window.tmpTextProps.setNEW( 'scale', (scale * 100) );
 			cnv.renderAll();
 			// _scaling();
 		}
@@ -993,8 +1241,10 @@
 	// @return bool
 	function changeScale ( /*number*/ values, /*number*/ handle ) {
 		var activeObject = cnv.getActiveObject();
+		var scale = Number(values[handle].substr(0, values[handle].length - 1)) / 100;
 		if ( activeObject ) {
-			activeObject.scale(Number(values[handle].substr(0, values[handle].length - 1)) / 100 );
+			activeObject.scale( scale );
+			window.tmpTextProps && window.tmpTextProps.setNEW( 'scale', (scale * 100) );
 			cnv.renderAll();
 			// _scaling();
 		}
@@ -1006,8 +1256,10 @@
 	// @return bool
 	function updateAngle ( /*number*/ values, /*number*/ handle ) {
 		var activeObject = cnv.getActiveObject();
+		var angle = Number(values[handle].substr(0, values[handle].length - 12));
 		if ( activeObject && this.target.firstChild.firstChild.firstChild.classList.contains('noUi-active') ) {
-			activeObject.set({angle: Number(values[handle].substr(0, values[handle].length - 12)) });
+			activeObject.set({angle: angle });
+			window.tmpTextProps && window.tmpTextProps.setNEW( 'angle', angle );
 			cnv.renderAll();
 			// _rotating();
 		}
@@ -1019,8 +1271,10 @@
 	// @return bool
 	function changeAngle ( /*number*/ values, /*number*/ handle ) {
 		var activeObject = cnv.getActiveObject();
+		var angle = Number(values[handle].substr(0, values[handle].length - 12));
 		if ( activeObject ) {
-			activeObject.set({angle: Number(values[handle].substr(0, values[handle].length - 12)) });
+			activeObject.set({angle: angle });
+			window.tmpTextProps && window.tmpTextProps.setNEW( 'angle', angle );
 			cnv.renderAll();
 			// _rotating();
 		}
@@ -1048,27 +1302,33 @@
 			width: widthn,
 			height: heightn
 		});
-		responsiveMoveObjects()
 	}
 
-	// Change canvases objects position onresize window
-	function responsiveMoveObjects() {
-		if ( window.OLD_canvas_size && window.OLD_canvas_size.w !== cnv.width ) {
-			var tmp_objects = cnv._objects.slice(1, cnv._objects.length - 4);
+	// // Change canvases objects position onresize window
+	// function responsiveMoveObjects() {
+	// 	if ( window.OLD_canvas_size && window.OLD_canvas_size.w !== cnv.width ) {
+	// 		var tmp_objects = cnv._objects.slice(1, cnv._objects.length - 4);
 
-			if ( tmp_objects.length ) {
-				for (var i = 0; i < tmp_objects.length; i++) {
-					tmp_objects[i].left -= (window.OLD_canvas_size.w - cnv.width) / 2;
-				}
-				cnv.renderAll();
-			}
-		}
-		window.OLD_canvas_size = {
-			w: cnv.width || 0,
-			h: cnv.height || 0
-		}
-	}
-	responsiveMoveObjects();
+	// 		if ( tmp_objects.length ) {
+	// 			for (var i = 0; i < tmp_objects.length; i++) {
+
+	// 				// console.log('tmp_objects[i].left', tmp_objects[i].left);
+	// 				// console.log('tmp_objects[i].position.canvasOffsetX', tmp_objects[i].position.canvasOffsetX);
+	// 				// console.log('tmp_objects[i].position.overlayOffsetX', tmp_objects[i].position.overlayOffsetX);
+
+	// 				// console.log('tmp_objects[i].top', tmp_objects[i].top);
+	// 				// console.log('tmp_objects[i].position.canvasOffsetY', tmp_objects[i].position.canvasOffsetY);
+	// 				// console.log('tmp_objects[i].position.overlayOffsetY', tmp_objects[i].position.overlayOffsetY);
+	// 			}
+	// 			cnv.renderAll();
+	// 		}
+	// 	}
+	// 	window.OLD_canvas_size = {
+	// 		w: cnv.width || 0,
+	// 		h: cnv.height || 0
+	// 	}
+	// }
+	// responsiveMoveObjects();
 
 	// Set new or old state object on apply or cancel edit mode
 	// @return bool
@@ -1128,7 +1388,7 @@
 			overlay['bottom'].object,
 			overlay['left'].object,
 			overlay['right'].object
-		);
+			);
 
 		for (var i = 0; i < orderArray.length; i++) {
 			cnv.moveTo(orderArray[i], i + 1);
@@ -1381,14 +1641,16 @@
 		targetElem = document.querySelector('.canvas-block__draw-place');
 		window.projectionPng = [];
 		targetElem.setAttribute('makephotos', '');
-		makePhotos( states, targetElem );
+		cnv.height = 800;
+		cnv.width = 1010;
+		_windowResize(e);
+		makePhotos( states, targetElem, callback );
 	}
 	// /Function-interface for creating images in different projections
 
 	// Recursive function for creating images of different projections
 	function makePhotos( /*[Array] number*/ states, /*[Object] DOM*/ targetElem, /*[Function] calback*/ callback ) {
 		setOverlay();
-		responsiveMoveObjects();
 		var state = states.shift();
 		preloader(true, state);
 		targetElem.setAttribute('state', ''+state);
@@ -1414,11 +1676,10 @@
 						targetElem.removeAttribute('makephotos');
 						targetElem.setAttribute('state', '1');
 						_windowResize();
-						responsiveMoveObjects();
+						_windowResize();
+						_windowResize();
 						preloader(false);
-						if ( "function" === typeof callback ) {
-							callback();
-						}
+						requestOnServer();
 					}
 				});
 			});
@@ -1443,11 +1704,10 @@
 						targetElem.removeAttribute('makephotos');
 						targetElem.setAttribute('state', '1');
 						_windowResize();
-						responsiveMoveObjects();
+						_windowResize();
+						_windowResize();
 						preloader(false);
-						if ( "function" === typeof callback ) {
-							callback();
-						}
+						requestOnServer();
 					}
 				});
 			});
@@ -1472,11 +1732,10 @@
 						targetElem.removeAttribute('makephotos');
 						targetElem.setAttribute('state', '1');
 						_windowResize();
-						responsiveMoveObjects();
+						_windowResize();
+						_windowResize();
 						preloader(false);
-						if ( "function" === typeof callback ) {
-							callback();
-						}
+						requestOnServer();
 					}
 				});
 			});
@@ -1599,6 +1858,14 @@
 				console.log('arguments[' + i + ']:', arguments[i]);
 			}
 		}
+	}
+
+	function requestOnServer () {
+		jQuery(function($){
+			var data = getCaseInfo();
+			!DEBUG && $.ajax( constructorRequest( data ) );
+			DEBUG && console.log( constructorRequest( data ) );
+		});
 	}
 
 	// Getter for getting all the information about the case

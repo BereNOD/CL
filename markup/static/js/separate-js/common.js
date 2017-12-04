@@ -1457,13 +1457,13 @@
 		// Global color object
 		window.currentColor = {
 			'Inside velvet': 'red',
-			'Inside velvet HEX': '#e62020',
-			'Back cover': 'brown',
-			'Back cover HEX': '#8c5a0b',
-			'Spine & zipper pulls': 'brown',
-			'Spine & zipper pulls HEX': '#8c5a0b',
+			'Inside velvet HEX': '#e03943',
+			'Back cover': 'chocolate',
+			'Back cover HEX': '#3b201a',
+			'Spine & zipper pulls': 'chocolate',
+			'Spine & zipper pulls HEX': '#3b201a',
 			'Thread': 'red',
-			'Thread HEX': '#e62020'
+			'Thread HEX': '#e03943'
 		}
 		var btn = document.querySelectorAll('.canvas-block__options-color-item-inner'),
 			cancelBtn = document.querySelectorAll('.canvas-block__options-color-hidden-control-btn-cancel'),
@@ -1670,16 +1670,18 @@
 		};
 
 		function getHEX ( color ) {
-			if ( color === 'white' ) { return '#fafafa'; }
-			else if ( color === 'darkgrey' ) { return '#808080'; }
-			else if ( color === 'black' ) { return '#000000'; }
-			else if ( color === 'red' ) { return '#e62020'; }
-			else if ( color === 'blue' ) { return '#209ee6'; }
-			else if ( color === 'green' ) { return '#159318'; }
-			else if ( color === 'yellow' ) { return '#f5f325'; }
-			else if ( color === 'orange' ) { return '#e69920'; }
-			else if ( color === 'purple' ) { return '#c418de'; }
-			else if ( color === 'brown' ) { return '#8c5a0b'; }
+			if ( color === 'black' ) { return '#000000'; }
+			else if ( color === 'chocolate' ) { return '#3b201a'; }
+			else if ( color === 'gold' ) { return '#f0e1b7'; }
+			else if ( color === 'gray' ) { return '#717175'; }
+			else if ( color === 'ivory' ) { return '#f4f3e5'; }
+			else if ( color === 'navy' ) { return '#3a5679'; }
+			else if ( color === 'olive' ) { return '#666c49'; }
+			else if ( color === 'orange' ) { return '#fd8b42'; }
+			else if ( color === 'purple' ) { return '#7a4d78'; }
+			else if ( color === 'red' ) { return '#e03943'; }
+			else if ( color === 'sky' ) { return '#aacddb'; }
+			else if ( color === 'yellow' ) { return '#ffe649'; }
 		}
 		// /Saving temporary Color
 		// 

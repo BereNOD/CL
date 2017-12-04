@@ -1,189 +1,154 @@
 mixin canvas-page
-    input(type="checkbox" style="display: none;")#mobail-color-state
-    .canvas-block
-        .container-fluid
-            .canvas-block__inner
-                .canvas-block__options
-                    .canvas-block__options-inner
-                        .canvas-block__options-top
-                            .canvas-block__options-select
-                                span.canvas-block__options-select-text Inside elastic bands
-                                span.canvas-block__options-select-arrow
-                                .canvas-block__options-select-drop
-                                    .canvas-block__options-select-drop-item Inside elastic bands
-                                    .canvas-block__options-select-drop-item On the back cover
-                                    .canvas-block__options-select-drop-item Both on the front & back
-                            .canvas-block__options-choice
-                                .canvas-block__options-choice-inner
-                                    .canvas-block__options-choice-wrap(data-type="image")
-                                        label.canvas-block__options-choice-wrap-inner.canvas-block__options-choice-wrap-inner--upload
-                                            input#imgUpload(type='file' accept="image")
-                                            img(src='static/img/content/canvas-img-options.png')
-                                            span.canvas-block__options-choice-title Add image
-                                    .canvas-block__options-choice-wrap(data-type="text")
-                                        a(href='#').canvas-block__options-choice-wrap-inner.canvas-block__options-choice-wrap-inner--edit-text
-                                            .canvas-block__options-choice-text-img
-                                                img(src='static/img/content/canvas-text-options.png')
-                                            span.canvas-block__options-choice-title Add text
-                            .canvas-block__options-control
-                                .canvas-block__options-control-method
-                                    .canvas-block__options-control-method-inner
-                                        span.canvas-block__options-control-method-title Scale
-                                        .canvas-block__options-control-method-wrap
-                                            .canvas-block__options-control-method-scale
-                                            span.canvas-block__options-control-method-output.canvas-block__options-control-method-output-scale
+	input(type="checkbox" style="display: none;")#mobail-color-state
+	.canvas-block
+		.container-fluid
+			.canvas-block__inner
+				.canvas-block__options
+					.canvas-block__options-inner
+						.canvas-block__options-top
+							.canvas-block__options-select
+								span.canvas-block__options-select-text Inside elastic bands
+								span.canvas-block__options-select-arrow
+								.canvas-block__options-select-drop
+									.canvas-block__options-select-drop-item Inside elastic bands
+									.canvas-block__options-select-drop-item On the back cover
+									.canvas-block__options-select-drop-item Both on the front & back
+							.canvas-block__options-choice
+								.canvas-block__options-choice-inner
+									.canvas-block__options-choice-wrap(data-type="image")
+										label.canvas-block__options-choice-wrap-inner.canvas-block__options-choice-wrap-inner--upload
+											input#imgUpload(type='file' accept="image")
+											img(src='static/img/content/canvas-img-options.png')
+											span.canvas-block__options-choice-title Add image
+									.canvas-block__options-choice-wrap(data-type="text")
+										a(href='#').canvas-block__options-choice-wrap-inner.canvas-block__options-choice-wrap-inner--edit-text
+											.canvas-block__options-choice-text-img
+												img(src='static/img/content/canvas-text-options.png')
+											span.canvas-block__options-choice-title Add text
+							.canvas-block__options-control
+								.canvas-block__options-control-method
+									.canvas-block__options-control-method-inner
+										span.canvas-block__options-control-method-title Scale
+										.canvas-block__options-control-method-wrap
+											.canvas-block__options-control-method-scale
+											span.canvas-block__options-control-method-output.canvas-block__options-control-method-output-scale
 
-                                .canvas-block__options-control-method
-                                    .canvas-block__options-control-method-inner
-                                        span.canvas-block__options-control-method-title Rotate
-                                        .canvas-block__options-control-method-wrap
-                                            .canvas-block__options-control-method-rotate
-                                            span.canvas-block__options-control-method-output.canvas-block__options-control-method-output-rotate
+								.canvas-block__options-control-method
+									.canvas-block__options-control-method-inner
+										span.canvas-block__options-control-method-title Rotate
+										.canvas-block__options-control-method-wrap
+											.canvas-block__options-control-method-rotate
+											span.canvas-block__options-control-method-output.canvas-block__options-control-method-output-rotate
 
-                        .canvas-block__options-color
-                            .canvas-block__options-color-inner
-                                mixin cb-i(data)
-                                    .canvas-block__options-color-item
-                                        a(href='#' title=data.text).canvas-block__options-color-item-inner
-                                            .canvas-block__options-color-item-img
-                                                span.canvas-block__options-color-item-img-value(class= data.cls)
-                                            .canvas-block__options-color-item-text
-                                                span.canvas-block__options-color-item-text-value= data.text
-                                        .canvas-block__options-color-hidden(data-type=data.type)
-                                            h3.canvas-block__options-color-hidden-title= data.text
-                                            .card-product__content-color
-                                                .card-product__content-color-inner
-                                                    .card-product__content-color-array
-                                                        label.card-product__content-color-item
-                                                            input(type='radio' name='color-item' data-color-name='white' checked)
-                                                            span.card-product__content-color-prop.is-white(data-color='#ffffff')
-                                                                i.fa.fa-check.card-product__content-color-icon
-                                                        label.card-product__content-color-item
-                                                            input(type='radio' name='color-item' data-color-name='darkgrey')
-                                                            span.card-product__content-color-prop(data-color='#808080')
-                                                                i.fa.fa-check.card-product__content-color-icon
-                                                        label.card-product__content-color-item
-                                                            input(type='radio' name='color-item' data-color-name='black')
-                                                            span.card-product__content-color-prop(data-color='#000000')
-                                                                i.fa.fa-check.card-product__content-color-icon
-                                                        label.card-product__content-color-item
-                                                            input(type='radio' name='color-item' data-color-name='red')
-                                                            span.card-product__content-color-prop(data-color='#e62020')
-                                                                i.fa.fa-check.card-product__content-color-icon
-                                                        label.card-product__content-color-item
-                                                            input(type='radio' name='color-item' data-color-name='blue')
-                                                            span.card-product__content-color-prop(data-color='#209ee6')
-                                                                i.fa.fa-check.card-product__content-color-icon
-                                                        label.card-product__content-color-item
-                                                            input(type='radio' name='color-item' data-color-name='green')
-                                                            span.card-product__content-color-prop(data-color='#159318')
-                                                                i.fa.fa-check.card-product__content-color-icon
-                                                        label.card-product__content-color-item
-                                                            input(type='radio' name='color-item' data-color-name='yellow')
-                                                            span.card-product__content-color-prop(data-color='#f5f325')
-                                                                i.fa.fa-check.card-product__content-color-icon
-                                                        label.card-product__content-color-item
-                                                            input(type='radio' name='color-item' data-color-name='orange')
-                                                            span.card-product__content-color-prop(data-color='#e69920')
-                                                                i.fa.fa-check.card-product__content-color-icon
-                                                        label.card-product__content-color-item
-                                                            input(type='radio' name='color-item' data-color-name='purple')
-                                                            span.card-product__content-color-prop(data-color='#c418de')
-                                                                i.fa.fa-check.card-product__content-color-icon
-                                                        label.card-product__content-color-item
-                                                            input(type='radio' name='color-item' data-color-name='brown')
-                                                            span.card-product__content-color-prop(data-color='#8c5a0b')
-                                                                i.fa.fa-check.card-product__content-color-icon
-                                            .canvas-block__options-color-hidden-control
-                                                .canvas-block__options-color-hidden-control-inner
-                                                    button.canvas-block__options-color-hidden-control-btn.canvas-block__options-color-hidden-control-btn-cancel Cancel
-                                                    button.canvas-block__options-color-hidden-control-btn.canvas-block__options-color-hidden-control-btn-apply Apply
+						.canvas-block__options-color
+							.canvas-block__options-color-inner
+								mixin cb-i(data)
+									.canvas-block__options-color-item
+										a(href='#' title=data.text).canvas-block__options-color-item-inner
+											.canvas-block__options-color-item-img
+												span.canvas-block__options-color-item-img-value(class= data.cls)
+											.canvas-block__options-color-item-text
+												span.canvas-block__options-color-item-text-value= data.text
+										.canvas-block__options-color-hidden(data-type=data.type)
+											h3.canvas-block__options-color-hidden-title= data.text
+											.card-product__content-color
+												.card-product__content-color-inner
+													.card-product__content-color-array
+														each color, title in {'black':'#000000','chocolate':'#3b201a','gold':'#f0e1b7','gray':'#717175','ivory':'#f4f3e5','navy':'#3a5679','olive':'#666c49','orange':'#fd8b42','purple':'#7a4d78','red':'#e03943','sky':'#aacddb','yellow':'#ffe649'}
+															label.card-product__content-color-item
+																input(type='radio' name='color-item' data-color-name=title)
+																span.card-product__content-color-prop.is-white(data-color=color)
+																	i.fa.fa-check.card-product__content-color-icon
+											.canvas-block__options-color-hidden-control
+												.canvas-block__options-color-hidden-control-inner
+													button.canvas-block__options-color-hidden-control-btn.canvas-block__options-color-hidden-control-btn-cancel Cancel
+													button.canvas-block__options-color-hidden-control-btn.canvas-block__options-color-hidden-control-btn-apply Apply
 
-                                +cb-i({text: 'Inside velvet', cls: 'canvas-block__options-color-item-img-value--velvet red', type: 'inside-velvet'})
-                                +cb-i({text: 'Back cover', cls: 'canvas-block__options-color-item-img-value--cover brown', type: 'back-cover'})
-                                +cb-i({text: 'Spine & zipper pulls', cls: 'canvas-block__options-color-item-img-value--spine brown', type: 'spine-n-zipper-pulls'})
-                                +cb-i({text: 'Thread', cls: 'canvas-block__options-color-item-img-value--thread red', type: 'thread'})
-                        .canvas-block__options-text
-                            .text-module
-                                .text-module__edit-text
-                                    span.text-module__title Your text
-                                    textarea.text-module__edit-text-textarea(placeholder='Enter text')#edit-text
-                                .text-module__edit-font
-                                    span.text-module__title Font
-                                    .text-module__edit-font-list#change-font
-                                        span.text-module__edit-font-list-text(style='font-family: Helvetica' data-style='30px Helvetica') Helvetica
-                                        span.text-module__edit-font-list-arrow
-                                        .text-module__edit-font-list-drop
-                                            label.text-module__edit-font-list-drop-item(style='font-family: Helvetica' data-style='30px Helvetica' data-font='Helvetica') Helvetica
-                                                input(type='radio' name='font-family' value="Helvetica" style='display: none;' checked)
-                                            label.text-module__edit-font-list-drop-item(style='font-family: Roboto Condensed' data-style='30px Roboto Condensed' data-font='Roboto Condensed') Roboto Condensed
-                                                input(type='radio' name='font-family' value="Roboto Condensed" style='display: none;')
-                                            label.text-module__edit-font-list-drop-item(style='font-family: Chewy' data-style='30px Chewy' data-font='Chewy') Chewy
-                                                input(type='radio' name='font-family' value="Chewy" style='display: none;')
+								+cb-i({text: 'Inside velvet', cls: 'canvas-block__options-color-item-img-value--velvet red', type: 'inside-velvet'})
+								+cb-i({text: 'Back cover', cls: 'canvas-block__options-color-item-img-value--cover brown', type: 'back-cover'})
+								+cb-i({text: 'Spine & zipper pulls', cls: 'canvas-block__options-color-item-img-value--spine brown', type: 'spine-n-zipper-pulls'})
+								+cb-i({text: 'Thread', cls: 'canvas-block__options-color-item-img-value--thread red', type: 'thread'})
+						.canvas-block__options-text
+							.text-module
+								.text-module__edit-text
+									span.text-module__title Your text
+									textarea.text-module__edit-text-textarea(placeholder='Enter text')#edit-text
+								.text-module__edit-font
+									span.text-module__title Font
+									.text-module__edit-font-list#change-font
+										span.text-module__edit-font-list-text(style='font-family: Helvetica' data-style='30px Helvetica') Helvetica
+										span.text-module__edit-font-list-arrow
+										.text-module__edit-font-list-drop
+											label.text-module__edit-font-list-drop-item(style='font-family: Helvetica' data-style='30px Helvetica' data-font='Helvetica') Helvetica
+												input(type='radio' name='font-family' value="Helvetica" style='display: none;' checked)
+											label.text-module__edit-font-list-drop-item(style='font-family: Roboto Condensed' data-style='30px Roboto Condensed' data-font='Roboto Condensed') Roboto Condensed
+												input(type='radio' name='font-family' value="Roboto Condensed" style='display: none;')
+											label.text-module__edit-font-list-drop-item(style='font-family: Chewy' data-style='30px Chewy' data-font='Chewy') Chewy
+												input(type='radio' name='font-family' value="Chewy" style='display: none;')
 
-                                .canvas-block__options-control
-                                    .canvas-block__options-control-method
-                                        .canvas-block__options-control-method-inner
-                                            span.canvas-block__options-control-method-title Scale
-                                            .canvas-block__options-control-method-wrap
-                                                .canvas-block__options-control-method-scale-text
-                                                span.canvas-block__options-control-method-output.canvas-block__options-control-method-output-text-scale.canvas-block__options-control-method-output-scale
-                                                input#text-scale-value(style='display: none;')
-                                    .canvas-block__options-control-method
-                                        .canvas-block__options-control-method-inner
-                                            span.canvas-block__options-control-method-title Rotate
-                                            .canvas-block__options-control-method-wrap
-                                                .canvas-block__options-control-method-rotate-text
-                                                span.canvas-block__options-control-method-output.canvas-block__options-control-method-output-text-rotate.canvas-block__options-control-method-output-rotate
-                                                input#text-rotate-value(style='display: none;')
-                                .text-module__edit-other
-                                    .text-module__edit-other-inner
-                                        label.text-module__edit-other-btn.text-module__edit-other-btn--weight B
-                                            input(type='checkbox')#edit-font-weight(style='display: none;')
-                                        label.text-module__edit-other-btn.text-module__edit-other-btn--italic /
-                                            input(type='checkbox')#edit-font-style(style='display: none;')
-                                        label.text-module__edit-other-btn.text-module__edit-other-btn--center
-                                            input(type='checkbox')#edit-font-center(style='display: none;')
-                                        //- label.text-module__edit-other-btn.text-module__edit-other-btn--color
-                                        input(type='color' value='#000000')#edit-color(style='display: none;')
-                                .text-module__buttons
-                                    .text-module__buttons-inner
-                                        button.text-module__buttons-btn.text-module__buttons-btn--cancel Cancel
-                                        button.text-module__buttons-btn.text-module__buttons-btn--apply Apply
-                .canvas-block__draw-place(state='1')
-                    .canvas-block__draw-wrapper
-                        .books-spine.black#spine
-                        .canvas-block__draw
-                            .backface.white.brown#backface
-                            canvas#our-canvas Your browser does not support the HTML 5 Canvas.
-                        .zipper#zipper
-                        .zipper-slider#zipper-slider
-                .canvas-block__controls
-                    .canvas-block__controls-inner
-                        a(href='#').canvas-block__controls-btn.canvas-block__controls-btn--change Change device
-                        a(href='#').canvas-block__controls-btn.canvas-block__controls-btn--clear Clear
-                        label(for="mobail-color-state").canvas-block__controls-btn.canvas-block__controls-btn--colors Colors
-                        a(href='#').canvas-block__controls-btn.canvas-block__controls-btn--next Next
+								.canvas-block__options-control
+									.canvas-block__options-control-method
+										.canvas-block__options-control-method-inner
+											span.canvas-block__options-control-method-title Scale
+											.canvas-block__options-control-method-wrap
+												.canvas-block__options-control-method-scale-text
+												span.canvas-block__options-control-method-output.canvas-block__options-control-method-output-text-scale.canvas-block__options-control-method-output-scale
+												input#text-scale-value(style='display: none;')
+									.canvas-block__options-control-method
+										.canvas-block__options-control-method-inner
+											span.canvas-block__options-control-method-title Rotate
+											.canvas-block__options-control-method-wrap
+												.canvas-block__options-control-method-rotate-text
+												span.canvas-block__options-control-method-output.canvas-block__options-control-method-output-text-rotate.canvas-block__options-control-method-output-rotate
+												input#text-rotate-value(style='display: none;')
+								.text-module__edit-other
+									.text-module__edit-other-inner
+										label.text-module__edit-other-btn.text-module__edit-other-btn--weight B
+											input(type='checkbox')#edit-font-weight(style='display: none;')
+										label.text-module__edit-other-btn.text-module__edit-other-btn--italic /
+											input(type='checkbox')#edit-font-style(style='display: none;')
+										label.text-module__edit-other-btn.text-module__edit-other-btn--center
+											input(type='checkbox')#edit-font-center(style='display: none;')
+										//- label.text-module__edit-other-btn.text-module__edit-other-btn--color
+										input(type='color' value='#000000')#edit-color(style='display: none;')
+								.text-module__buttons
+									.text-module__buttons-inner
+										button.text-module__buttons-btn.text-module__buttons-btn--cancel Cancel
+										button.text-module__buttons-btn.text-module__buttons-btn--apply Apply
+				.canvas-block__draw-place(state='1')
+					.canvas-block__draw-wrapper
+						.books-spine.chocolate#spine
+						.canvas-block__draw
+							.backface.chocolate#backface
+							canvas#our-canvas Your browser does not support the HTML 5 Canvas.
+						.zipper#zipper
+						.zipper-slider#zipper-slider
+				.canvas-block__controls
+					.canvas-block__controls-inner
+						a(href='#').canvas-block__controls-btn.canvas-block__controls-btn--change Change device
+						a(href='#').canvas-block__controls-btn.canvas-block__controls-btn--clear Clear
+						label(for="mobail-color-state").canvas-block__controls-btn.canvas-block__controls-btn--colors Colors
+						a(href='#').canvas-block__controls-btn.canvas-block__controls-btn--next Next
 
-        .device-block
-            .device-block__content
-                h2.std-title Choose device
-                .device-block__inner
-                    .device-item(data-device='phone')
-                        a(href='#').device-item__inner
-                            .device-item__img
-                                img.device-item__img-bg(src='static/img/content/device-bg.png')
-                                .device-item__img-inner.device-item__img-inner--phone
-                                    span.device-item__img-text Phone
-                    .device-item(data-device='tablet')
-                        a(href='#').device-item__inner
-                            .device-item__img
-                                img.device-item__img-bg(src='static/img/content/device-bg.png')
-                                .device-item__img-inner.device-item__img-inner--tablet
-                                    span.device-item__img-text Tablet
-                    .device-item(data-device='laptop')
-                        a(href='#').device-item__inner
-                            .device-item__img
-                                img.device-item__img-bg(src='static/img/content/device-bg.png')
-                                .device-item__img-inner.device-item__img-inner--laptop
-                                    span.device-item__img-text Laptop
+		.device-block
+			.device-block__content
+				h2.std-title Choose device
+				.device-block__inner
+					.device-item(data-device='phone')
+						a(href='#').device-item__inner
+							.device-item__img
+								img.device-item__img-bg(src='static/img/content/device-bg.png')
+								.device-item__img-inner.device-item__img-inner--phone
+									span.device-item__img-text Phone
+					.device-item(data-device='tablet')
+						a(href='#').device-item__inner
+							.device-item__img
+								img.device-item__img-bg(src='static/img/content/device-bg.png')
+								.device-item__img-inner.device-item__img-inner--tablet
+									span.device-item__img-text Tablet
+					.device-item(data-device='laptop')
+						a(href='#').device-item__inner
+							.device-item__img
+								img.device-item__img-bg(src='static/img/content/device-bg.png')
+								.device-item__img-inner.device-item__img-inner--laptop
+									span.device-item__img-text Laptop
