@@ -4,7 +4,7 @@
 	//  - added state control buttons
 	//  - in generete projections added them into body end
 	//  - hide preloader
-	var DEBUG = true;
+	var DEBUG = false;
 	if (DEBUG) console.log('Debug mode is active');
 
 	var constructorRequest = function ( data ) {
@@ -494,6 +494,8 @@
 
 					image.setControlsVisibility({'mr': false, 'ml': false, 'mt': false, 'mb': false});
 
+					image.on('deselected', _editTextBlockApply.bind(cnv));
+
 					cnv.centerObject(image);
 					cnv.add(image).setActiveObject(image);
 					window.$imageObjects.push(image);
@@ -586,6 +588,7 @@
 
 	// Edit text block Apply button event: click handler
 	function _editTextBlockApply ( /*[Object] event*/ e ) {
+		console.log('[Deselect]', this);
 		window.tmp_object_values = undefined;
 		var activeObject = cnv.getActiveObject();
 		if ( this === cnv || activeObject ) {
@@ -619,6 +622,8 @@
 				minScaleLimit: 0.3
 			});
 			text.setControlsVisibility({'mr': false, 'ml': false, 'mt': false, 'mb': false});
+
+			text.on('deselected', _editTextBlockApply.bind(cnv));
 
 			cnv.centerObject(text);
 			cnv.add(text);
@@ -939,13 +944,7 @@
 
 	// canvas after render event handler
 	function _afterRender ( /*[Object] event*/ e ) {
-		// var activeObject = cnv.getActiveObject();
-		// if ( activeObject && (0.1 >= activeObject.scaleX || 0.1 >= activeObject.scaleY) ) {
-		// 	activeObject.scaleX = activeObject.baseScale;
-		// 	activeObject.scaleY = activeObject.baseScale;
-		// 	activeObject.top = activeObject.baseTop;
-		// 	activeObject.left = activeObject.baseLeft;
-		// }
+
 	}
 
 	// canvas text edit in boundary box event handler
