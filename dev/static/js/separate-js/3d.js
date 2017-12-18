@@ -5,14 +5,17 @@
 	//  - in generete projections added them into body end
 	//  - hide preloader
 	var DEBUG = true;
+	if (DEBUG) console.log('Debug mode is active');
 
 	var constructorRequest = function ( data ) {
+		DEBUG && console.log('Send on server data:', data);
 		return {
 			url: location.origin + '/index.php?route=constructor/constructor/validate',
 			method: 'POST',
 			data: data,
 			success: function ( response ) {
 				console.log( response );
+				// window.location.href = ''; // В кавычки ссылку URI, куда должен произойти режирект, если он нужен.
 			},
 			error: function () {
 				console.log( arguments );
@@ -453,7 +456,7 @@
 			file = this.files[0],
 			tempImg = new Image();
 
-			if(file && file.type.match('image.*')) {
+			if( file && file.type.match('image.*') ) {
 				reader.readAsDataURL(file);
 			}
 
@@ -488,48 +491,6 @@
 							scaleX: scale * 0.8,
 						});
 					}
-
-					var minScaleX = 0.09;
-					var minScaleY = 0.09;
-
-					image.on('scaling', function ( e ) {
-						var scaleX = this.scaleX;
-						var scaleY = this.scaleY;
-						var left = this.left;
-						var top = this.top;
-						var lastGoodLeft = this.lastGoodLeft;
-						var lastGoodTop = this.lastGoodTop;
-						if ( scaleX && scaleY && left && top ) {
-							window.tmp_object_values.set('scaleX', scaleX);
-							window.tmp_object_values.set('scaleY', scaleY);
-							window.tmp_object_values.set('left', left);
-							window.tmp_object_values.set('top', top);
-							window.tmp_object_values.set('lastGoodLeft', lastGoodLeft);
-							window.tmp_object_values.set('lastGoodTop', lastGoodTop);
-						}
-						else {
-							if(scaleX && this.scaleX < minScaleX) {
-								this.scaleX = minScaleX;
-								this.scaleY = minScaleY;
-								this.left = this.lastGoodLeft;
-								this.top = this.lastGoodTop;
-							}
-							else {
-								this.scaleX = window.tmp_object_values.get('scaleX');
-								this.scaleY = window.tmp_object_values.get('scaleY');
-								this.left = window.tmp_object_values.get('left');
-								this.top = window.tmp_object_values.get('top');
-							}
-							if (lastGoodLeft && lastGoodTop) {
-								this.lastGoodTop = this.top;
-								this.lastGoodLeft = this.left;
-							}
-							else {
-								this.lastGoodTop = window.tmp_object_values.get('top');
-								this.lastGoodLeft = window.tmp_object_values.get('left');
-							}
-						}
-					});
 
 					image.setControlsVisibility({'mr': false, 'ml': false, 'mt': false, 'mb': false});
 
@@ -628,8 +589,6 @@
 		window.tmp_object_values = undefined;
 		var activeObject = cnv.getActiveObject();
 		if ( this === cnv || activeObject ) {
-
-			// activeObject.set();
 			window.tmpTextProps && window.tmpTextProps.NEW && activeObjectSetState ( window.tmpTextProps.NEW );
 			window.tmpTextProps = undefined;
 		}
@@ -657,61 +616,9 @@
 				originY: "center",
 				scaleY: (scale / 100) || 1,
 				scaleX: (scale / 100) || 1,
-				minScaleLimit: 0.1
+				minScaleLimit: 0.3
 			});
 			text.setControlsVisibility({'mr': false, 'ml': false, 'mt': false, 'mb': false});
-
-			var minScaleX = 0.09;
-			var minScaleY = 0.09;
-
-			text.on('scaling', function ( e ) {
-				var scaleX = this.scaleX;
-				var scaleY = this.scaleY;
-				var left = this.left;
-				var top = this.top;
-				var lastGoodLeft = this.lastGoodLeft;
-				var lastGoodTop = this.lastGoodTop;
-				if ( scaleX && scaleY && left && top ) {
-					window.tmp_object_values.set('scaleX', scaleX);
-					window.tmp_object_values.set('scaleY', scaleY);
-					window.tmp_object_values.set('left', left);
-					window.tmp_object_values.set('top', top);
-					window.tmp_object_values.set('lastGoodLeft', lastGoodLeft);
-					window.tmp_object_values.set('lastGoodTop', lastGoodTop);
-
-					console.log('window.tmp_object_values', window.tmp_object_values);
-				}
-				else {
-					// window.tmp_object_values.get('scaleX');
-					// window.tmp_object_values.get('scaleY');
-					// window.tmp_object_values.get('left');
-					// window.tmp_object_values.get('top');
-					// window.tmp_object_values.get('lastGoodLeft');
-					// window.tmp_object_values.get('lastGoodTop');
-					if(scaleX && this.scaleX < minScaleX) {
-						this.scaleX = minScaleX;
-						this.scaleY = minScaleY;
-						this.left = this.lastGoodLeft;
-						this.top = this.lastGoodTop;
-					}
-					else {
-						this.scaleX = window.tmp_object_values.get('scaleX');
-						this.scaleY = window.tmp_object_values.get('scaleY');
-						this.left = window.tmp_object_values.get('left');
-						this.top = window.tmp_object_values.get('top');
-					}
-					if (lastGoodLeft && lastGoodTop) {
-						this.lastGoodTop = this.top;
-						this.lastGoodLeft = this.left;
-					}
-					else {
-						this.lastGoodTop = window.tmp_object_values.get('top');
-						this.lastGoodLeft = window.tmp_object_values.get('left');
-					}
-				}
-			});
-
-			text.on('deselected', _editTextBlockApply);
 
 			cnv.centerObject(text);
 			cnv.add(text);
@@ -849,24 +756,17 @@
 	function _scaling ( /*[Object] event*/ e ) {
 		var activeObject = cnv.getActiveObject(),
 		scale = activeObject.get('scaleY') * 100;
-		activeObject.lockMovementX = true;
-		activeObject.lockMovementY = true;
+		// activeObject.lockMovementX = true;
+		// activeObject.lockMovementY = true;
 		if ( is_text(activeObject) ) {
 			editTextScale.set( scale );
 			window.tmpTextProps && window.tmpTextProps.setNEW( 'scale', scale );
+			window.tmpTextProps && window.tmpTextProps.setNEW( 'top', activeObject.top );
+			window.tmpTextProps && window.tmpTextProps.setNEW( 'left', activeObject.left );
 		}
 		else {
 			editImageScale.set(scale);
 		}
-
-		if ( 0.1 >= activeObject.scaleX || 0.1 >= activeObject.scaleY ) {
-			activeObject.scaleX = activeObject.baseScale;
-			activeObject.scaleY = activeObject.baseScale;
-			activeObject.top = activeObject.baseTop;
-			activeObject.left = activeObject.baseLeft;
-		}
-		activeObject.lockMovementX = false;
-		activeObject.lockMovementY = false;
 	}
 
 	// Object rotating event handler
@@ -894,6 +794,7 @@
 		};
 		var activeObject = cnv.getActiveObject(),
 		isText = is_text(activeObject);
+		DEBUG && console.log('Active object:', activeObject);
 
 		if ( isText ) {
 			openEditTextBar();
@@ -1038,13 +939,13 @@
 
 	// canvas after render event handler
 	function _afterRender ( /*[Object] event*/ e ) {
-		var activeObject = cnv.getActiveObject();
-		if ( activeObject && (0.1 >= activeObject.scaleX || 0.1 >= activeObject.scaleY) ) {
-			activeObject.scaleX = activeObject.baseScale;
-			activeObject.scaleY = activeObject.baseScale;
-			activeObject.top = activeObject.baseTop;
-			activeObject.left = activeObject.baseLeft;
-		}
+		// var activeObject = cnv.getActiveObject();
+		// if ( activeObject && (0.1 >= activeObject.scaleX || 0.1 >= activeObject.scaleY) ) {
+		// 	activeObject.scaleX = activeObject.baseScale;
+		// 	activeObject.scaleY = activeObject.baseScale;
+		// 	activeObject.top = activeObject.baseTop;
+		// 	activeObject.left = activeObject.baseLeft;
+		// }
 	}
 
 	// canvas text edit in boundary box event handler
@@ -1785,26 +1686,26 @@
 				.draw(texture)
 				.perspective(
 					[
-					perspectiveProp.old[0],
-					perspectiveProp.old[1],
-					perspectiveProp.old[2],
-					perspectiveProp.old[3],
-					perspectiveProp.old[4],
-					perspectiveProp.old[5],
-					perspectiveProp.old[6],
-					perspectiveProp.old[7]
+						perspectiveProp.old[0],
+						perspectiveProp.old[1],
+						perspectiveProp.old[2],
+						perspectiveProp.old[3],
+						perspectiveProp.old[4],
+						perspectiveProp.old[5],
+						perspectiveProp.old[6],
+						perspectiveProp.old[7]
 					],
 					[
-					perspectiveProp.new[0],
-					perspectiveProp.new[1],
-					perspectiveProp.new[2],
-					perspectiveProp.new[3],
-					perspectiveProp.new[4],
-					perspectiveProp.new[5],
-					perspectiveProp.new[6],
-					perspectiveProp.new[7]
+						perspectiveProp.new[0],
+						perspectiveProp.new[1],
+						perspectiveProp.new[2],
+						perspectiveProp.new[3],
+						perspectiveProp.new[4],
+						perspectiveProp.new[5],
+						perspectiveProp.new[6],
+						perspectiveProp.new[7]
 					]
-					)
+				)
 				.update();
 				temporaryImage.src = cfx.toDataURL('image/png');
 				spineDisplay( 'block' );

@@ -342,7 +342,6 @@ $constructor_colors_HEX: (
 		.backface {
 			width: 100%;
 			height: 100%;
-			background-color: red;
 			display: none;
 		}
 		&-place {
@@ -627,35 +626,10 @@ $constructor_colors_HEX: (
 				.backface {
 					display: block;
 					left: -1px;
-					&.white {
-						background-color: #ffffff;
-					}
-					&.darkgrey {
-						background-color: #808080;
-					}
-					&.black {
-						background-color: #000000;
-					}
-					&.red {
-						background-color: #e62020;
-					}
-					&.blue {
-						background-color: #209ee6;
-					}
-					&.green {
-						background-color: #159318;
-					}
-					&.yellow {
-						background-color: #f5f325;
-					}
-					&.orange {
-						background-color: #e69920;
-					}
-					&.purple {
-						background-color: #c418de;
-					}
-					&.brown {
-						background-color: #8c5a0b;
+					@each $title, $color in $constructor_colors_HEX {
+						&.#{$title} {
+							background-color: #{$color};
+						}
 					}
 				}
 				&[device="phone"] {
@@ -1293,7 +1267,7 @@ $constructor_colors_HEX: (
 			}
 			&-text {
 				padding: 20px;
-				top: -382px;
+				top: 0px;
 				width: 250%;
 				height: 420%;
 				z-index: 9998;

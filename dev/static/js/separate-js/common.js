@@ -1026,7 +1026,7 @@
 			noUiSlider.create(canvasScaleTextValue, {
 				start: [ 100 ],
 				range: {
-					'min': [ 10 ],
+					'min': [ 30 ],
 					'max': [ 500 ]
 				},
 				format: wNumb({
@@ -1490,9 +1490,6 @@
 				if ( target ) {
 					var change = new Event('change');
 					target.dispatchEvent(change);
-					console.log(color);
-					console.log(target);
-					console.log(change);
 				}
 				this.classList.add('is-active');
 				this.nextElementSibling.classList.add('is-active');
