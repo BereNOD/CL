@@ -588,7 +588,6 @@
 
 	// Edit text block Apply button event: click handler
 	function _editTextBlockApply ( /*[Object] event*/ e ) {
-		console.log('[Deselect]', this);
 		window.tmp_object_values = undefined;
 		var activeObject = cnv.getActiveObject();
 		if ( this === cnv || activeObject ) {
