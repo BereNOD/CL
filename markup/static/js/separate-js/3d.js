@@ -500,6 +500,8 @@
 					cnv.add(image).setActiveObject(image);
 					window.$imageObjects.push(image);
 
+					var _image = cnv._objects[window.$imageObjects.length];
+
 					setObjectsOrder();
 					cnv.renderAll();
 
@@ -528,19 +530,24 @@
 						canvasOffsetX: image.left - overlay['left'].width(cnv.width),
 						scaleOffsetX: function (scale) {
 							this.canvasOffsetX = this.canvasOffsetX * scale;
+							cnv.renderAll();
 						},
 						scaleOffsetY: function (scale) {
 							this.canvasOffsetY = this.canvasOffsetY * scale;
+							cnv.renderAll();
 						},
 						conversionOffsetX: function () {
 							this.canvasOffsetX = image.left - overlay['left'].width(cnv.width);
+							cnv.renderAll();
 						},
 						conversionOffsetY: function () {
 							this.canvasOffsetY = image.top - overlay['top'].height(cnv.height);
+							cnv.renderAll();
 						},
 						conversionOverlayOffset: function () {
 							this.overlayOffsetY = overlay['top'].height(cnv.height);
 							this.overlayOffsetX = overlay['left'].width(cnv.width);
+							cnv.renderAll();
 						}
 					};
 					_windowResize();
@@ -629,19 +636,6 @@
 			window.$textObjects.push(text);
 			setObjectsOrder();
 			text.baseScale = text.scaleX;
-
-			// base size parts
-			// text.size = {
-			// 	width: text.width,
-			// 	height: text.height,
-			// 	fontSize: text.get('fontSize'),
-			// 	conversion: function () {
-			// 		var k = canvasWidth / defaultCanvasWidth;
-			// 		text.width = this.width * k;
-			// 		text.height = this.height * k;
-			// 		fontSize.
-			// 	}
-			// };
 
 			// base position parts
 			text.position = {
@@ -1204,32 +1198,6 @@
 			height: heightn
 		});
 	}
-
-	// // Change canvases objects position onresize window
-	// function responsiveMoveObjects() {
-	// 	if ( window.OLD_canvas_size && window.OLD_canvas_size.w !== cnv.width ) {
-	// 		var tmp_objects = cnv._objects.slice(1, cnv._objects.length - 4);
-
-	// 		if ( tmp_objects.length ) {
-	// 			for (var i = 0; i < tmp_objects.length; i++) {
-
-	// 				// console.log('tmp_objects[i].left', tmp_objects[i].left);
-	// 				// console.log('tmp_objects[i].position.canvasOffsetX', tmp_objects[i].position.canvasOffsetX);
-	// 				// console.log('tmp_objects[i].position.overlayOffsetX', tmp_objects[i].position.overlayOffsetX);
-
-	// 				// console.log('tmp_objects[i].top', tmp_objects[i].top);
-	// 				// console.log('tmp_objects[i].position.canvasOffsetY', tmp_objects[i].position.canvasOffsetY);
-	// 				// console.log('tmp_objects[i].position.overlayOffsetY', tmp_objects[i].position.overlayOffsetY);
-	// 			}
-	// 			cnv.renderAll();
-	// 		}
-	// 	}
-	// 	window.OLD_canvas_size = {
-	// 		w: cnv.width || 0,
-	// 		h: cnv.height || 0
-	// 	}
-	// }
-	// responsiveMoveObjects();
 
 	// Set new or old state object on apply or cancel edit mode
 	// @return bool
