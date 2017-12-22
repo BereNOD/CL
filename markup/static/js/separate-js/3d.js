@@ -500,8 +500,6 @@
 					cnv.add(image).setActiveObject(image);
 					window.$imageObjects.push(image);
 
-					var _image = cnv._objects[window.$imageObjects.length];
-
 					setObjectsOrder();
 					cnv.renderAll();
 
@@ -530,24 +528,19 @@
 						canvasOffsetX: image.left - overlay['left'].width(cnv.width),
 						scaleOffsetX: function (scale) {
 							this.canvasOffsetX = this.canvasOffsetX * scale;
-							cnv.renderAll();
 						},
 						scaleOffsetY: function (scale) {
 							this.canvasOffsetY = this.canvasOffsetY * scale;
-							cnv.renderAll();
 						},
 						conversionOffsetX: function () {
 							this.canvasOffsetX = image.left - overlay['left'].width(cnv.width);
-							cnv.renderAll();
 						},
 						conversionOffsetY: function () {
 							this.canvasOffsetY = image.top - overlay['top'].height(cnv.height);
-							cnv.renderAll();
 						},
 						conversionOverlayOffset: function () {
 							this.overlayOffsetY = overlay['top'].height(cnv.height);
 							this.overlayOffsetX = overlay['left'].width(cnv.width);
-							cnv.renderAll();
 						}
 					};
 					_windowResize();
