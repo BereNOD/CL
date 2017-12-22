@@ -631,15 +631,17 @@
 			text.baseScale = text.scaleX;
 
 			// base size parts
-			text.size = {
-				width: text.width,
-				height: text.height,
-				conversion: function () {
-					var k = canvasWidth / defaultCanvasWidth;
-					text.width = this.width * k;
-					text.height = this.height * k;
-				}
-			};
+			// text.size = {
+			// 	width: text.width,
+			// 	height: text.height,
+			// 	fontSize: text.get('fontSize'),
+			// 	conversion: function () {
+			// 		var k = canvasWidth / defaultCanvasWidth;
+			// 		text.width = this.width * k;
+			// 		text.height = this.height * k;
+			// 		fontSize.
+			// 	}
+			// };
 
 			// base position parts
 			text.position = {
@@ -1032,7 +1034,7 @@
 					tmp_scale = 1;
 				}
 
-				tmp_objects[i].size.conversion();
+				!is_text(tmp_objects[i]) && tmp_objects[i].size.conversion();
 				tmp_objects[i].position.conversionOverlayOffset();
 				tmp_objects[i].position.conversionOverlayOffset();
 				tmp_objects[i].left = tmp_objects[i].position.canvasOffsetX + tmp_objects[i].position.overlayOffsetX;
