@@ -80,7 +80,7 @@
 	bottomTop.onload = function() {
 		rotate.src = 'static/img/content/controls/rotate.png';
 	}
-	
+
 
 	var rotate = new Image();
 	rotate.onload = function() {
@@ -433,7 +433,7 @@
 					window.$imageObjects.splice(window.$imageObjects.indexOf(obj), 1);
 				}
 				cnv.discardActiveObject();
-				cnv.renderAll(); 
+				cnv.renderAll();
 				setObjectsOrder();
 			}
 		}
@@ -543,7 +543,6 @@
 							this.overlayOffsetX = overlay['left'].width(cnv.width);
 						}
 					};
-					_windowResize();
 				};
 			};
 		} else {
@@ -655,10 +654,9 @@
 					this.overlayOffsetX = overlay['left'].width(cnv.width);
 				}
 			};
-			_windowResize();
+			cnv.discardActiveObject();
 		}
 		cnv.renderAll();
-		cnv.discardActiveObject();
 		closeEditTextBar();
 	}
 
@@ -997,7 +995,7 @@
 				canvasHeight = defaultCanvasHeight * k;
 				canvasWidth = defaultCanvasWidth * k;
 				cnvPlace.style.maxHeight = (800 * k) + 'px';
-				
+
 			}
 			else if ( cnvPlace.style.maxHeight !== '800px' ) {
 				canvasHeight = defaultCanvasHeight;
@@ -1395,7 +1393,7 @@
 				projections.zipperElement.style.width = width + 'px';
 				projections.zipperElement.style.height = height + 'px';
 				projections.zipperElement.style.backgroundSize = 100 + '%';
-				projections.zipperElement.style.top = 508 + 'px'; // 505 
+				projections.zipperElement.style.top = 508 + 'px'; // 505
 				projections.zipperElement.style.left = 284 + 'px';
 				projections.zipperElement.style.display = 'block';
 			}
@@ -1413,7 +1411,7 @@
 				projections.zipperElement.style.width = width + 'px';
 				projections.zipperElement.style.height = height + 'px';
 				projections.zipperElement.style.backgroundSize = width + 'px ' + height + 'px';
-				projections.zipperElement.style.top = 515 + 'px'; // 505 
+				projections.zipperElement.style.top = 515 + 'px'; // 505
 				projections.zipperElement.style.left = 280.5 + 'px';
 				projections.zipperElement.style.display = 'block';
 			}
@@ -1431,7 +1429,7 @@
 				projections.zipperElement.style.width = width + 'px';
 				projections.zipperElement.style.height = height + 'px';
 				projections.zipperElement.style.backgroundSize = 100 + '%';
-				projections.zipperElement.style.top = 514 + 'px'; // 505 
+				projections.zipperElement.style.top = 514 + 'px'; // 505
 				projections.zipperElement.style.left = 284 + 'px';
 				projections.zipperElement.style.display = 'block';
 			}
@@ -1742,7 +1740,7 @@
 				return _return;
 			}
 	// /Getter for getting all the information about the case
-	
+
 	/***********************************Plugin init block*START*************************************/
 
 	// Spectrum (Color picker) init
