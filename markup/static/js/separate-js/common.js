@@ -1673,6 +1673,7 @@
 			else if ( color === 'gray' ) { return '#717175'; }
 			else if ( color === 'ivory' ) { return '#f4f3e5'; }
 			else if ( color === 'navy' ) { return '#3a5679'; }
+			else if ( color === 'murena' ) { return '#224e55'; }
 			else if ( color === 'olive' ) { return '#666c49'; }
 			else if ( color === 'orange' ) { return '#fd8b42'; }
 			else if ( color === 'purple' ) { return '#7a4d78'; }
@@ -1681,8 +1682,8 @@
 			else if ( color === 'yellow' ) { return '#ffe649'; }
 		}
 		// /Saving temporary Color
-		// 
-		// 
+		//
+		//
 		// if(btn) {
 		//     for (var i = 0; i < btn.length; i++) {
 		//         btn[i].addEventListener('click', function (e) {

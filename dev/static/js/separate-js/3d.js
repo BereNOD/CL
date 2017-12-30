@@ -1517,64 +1517,16 @@
 		whiteOverlay();
 		renderSpine();
 		if ( state === 2 ) {
-			genereteCanvasProjectionImage(120, 200, function(){
-				domtoimage
-				.toPng(targetElem)
-				.then(function (dataUrl) {
-					var tmp_obj = {
-						title: 'state-' + state + '.png',
-						href: dataUrl
-					};
-					var img = new Image();
-					img.src = dataUrl;
-					DEBUG && document.body.appendChild(img);
-					window.projectionPng.push(tmp_obj);
-					if ( states.length > 0 ) {
-						makePhotos( states, targetElem );
-					}
-					else {
-						targetElem.removeAttribute('makephotos');
-						targetElem.setAttribute('state', '1');
-						_windowResize();
-						_windowResize();
-						_windowResize();
-						preloader(false);
-						requestOnServer();
-					}
-				});
-			});
+			genereteCanvasProjectionImage(120, 200, genereteCanvasProjectionImage_callback);
 		}
 		else if ( state === 4 ) {
-			genereteCanvasProjectionImage(120, 250, function(){
-				domtoimage
-				.toPng(targetElem)
-				.then(function (dataUrl) {
-					var tmp_obj = {
-						title: 'state-' + state + '.png',
-						href: dataUrl
-					};
-					var img = new Image();
-					img.src = dataUrl;
-					DEBUG && document.body.appendChild(img);
-					window.projectionPng.push(tmp_obj);
-					if ( states.length > 0 ) {
-						makePhotos( states, targetElem );
-					}
-					else {
-						targetElem.removeAttribute('makephotos');
-						targetElem.setAttribute('state', '1');
-						_windowResize();
-						_windowResize();
-						_windowResize();
-						preloader(false);
-						requestOnServer();
-					}
-				});
-			});
+			genereteCanvasProjectionImage(120, 250, genereteCanvasProjectionImage_callback);
 		}
 		else {
-			genereteCanvasProjectionImage(null, null, function(){
-				domtoimage
+			genereteCanvasProjectionImage(null, null, genereteCanvasProjectionImage_callback);
+		}
+		function genereteCanvasProjectionImage_callback() {
+			domtoimage
 				.toPng(targetElem)
 				.then(function (dataUrl) {
 					var tmp_obj = {
@@ -1598,7 +1550,6 @@
 						requestOnServer();
 					}
 				});
-			});
 		}
 	}
 	// /Recursive function for creating images of different projections
