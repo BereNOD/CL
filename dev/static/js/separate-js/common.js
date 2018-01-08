@@ -1455,6 +1455,21 @@
 	// canvas color options
 	(function () {
 		// Global color object
+		window.palette = {
+			black: '#000000',
+			chocolate: '#3b201a',
+			gold: '#f0e1b7',
+			gray: '#717175',
+			ivory: '#f4f3e5',
+			navy: '#3a5679',
+			murena: '#224e55',
+			olive: '#666c49',
+			orange: '#fd8b42',
+			purple: '#7a4d78',
+			red: '#e03943',
+			sky: '#aacddb',
+			yellow: '#ffe649'
+		};
 		window.currentColor = {
 			'Inside velvet': 'red',
 			'Inside velvet HEX': '#e03943',
@@ -1465,6 +1480,14 @@
 			'Thread': 'red',
 			'Thread HEX': '#e03943'
 		}
+		window.defaultColors = {
+			targets: {}
+		};
+		for (var key in window.currentColor) {
+			window.defaultColors[key] = window.currentColor[key];
+			window.defaultColors.targets[key] = document.querySelector('.canvas-block__options-color-item-inner[title="' + key + '"] .canvas-block__options-color-item-img-value');
+		}
+
 		var btn = document.querySelectorAll('.canvas-block__options-color-item-inner'),
 			cancelBtn = document.querySelectorAll('.canvas-block__options-color-hidden-control-btn-cancel'),
 			applyBtn = document.querySelectorAll('.canvas-block__options-color-hidden-control-btn-apply'),
@@ -1667,19 +1690,7 @@
 		};
 
 		function getHEX ( color ) {
-			if ( color === 'black' ) { return '#000000'; }
-			else if ( color === 'chocolate' ) { return '#3b201a'; }
-			else if ( color === 'gold' ) { return '#f0e1b7'; }
-			else if ( color === 'gray' ) { return '#717175'; }
-			else if ( color === 'ivory' ) { return '#f4f3e5'; }
-			else if ( color === 'navy' ) { return '#3a5679'; }
-			else if ( color === 'murena' ) { return '#224e55'; }
-			else if ( color === 'olive' ) { return '#666c49'; }
-			else if ( color === 'orange' ) { return '#fd8b42'; }
-			else if ( color === 'purple' ) { return '#7a4d78'; }
-			else if ( color === 'red' ) { return '#e03943'; }
-			else if ( color === 'sky' ) { return '#aacddb'; }
-			else if ( color === 'yellow' ) { return '#ffe649'; }
+			return palette[color];
 		}
 		// /Saving temporary Color
 		//

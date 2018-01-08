@@ -4,7 +4,7 @@
 	//  - added state control buttons
 	//  - in generete projections added them into body end
 	//  - hide preloader
-	var DEBUG = false;
+	var DEBUG = true;
 	if (DEBUG) console.log('Debug mode is active');
 
 	var constructorRequest = function ( data ) {
@@ -331,7 +331,7 @@
 
 	cnv.on('object:scaling', _scaling); // Object scaling event handler
 	cnv.on('object:rotating', _rotating); // Object rotating event handler
-	cnv.on('object:selected', _selected); // Object selecting event handler
+	// cnv.on('object:selected', _selected); // Object selecting event handler
 	cnv.on('object:moving', _moving); // Object moving event handler
 	cnv.on('selection:cleared', _editTextBlockApply); // Object deselecting event handler
 	cnv.on('after:render', _afterRender); // Canvas after render event handler
@@ -395,6 +395,7 @@
 		window.$imageObjects = [];
 		renderSpine();
 		setObjectsOrder();
+		setDefaultPaletteColors();
 		deviceBlock.style.display = 'none';
 		return false;
 	}
@@ -495,6 +496,7 @@
 					image.setControlsVisibility({'mr': false, 'ml': false, 'mt': false, 'mb': false});
 
 					image.on('deselected', _editTextBlockApply.bind(cnv));
+					image.on('selected', _selected);
 
 					cnv.centerObject(image);
 					cnv.add(image).setActiveObject(image);
@@ -622,6 +624,7 @@
 			text.setControlsVisibility({'mr': false, 'ml': false, 'mt': false, 'mb': false});
 
 			text.on('deselected', _editTextBlockApply.bind(cnv));
+			text.on('selected', _selected);
 
 			cnv.centerObject(text);
 			cnv.add(text);
@@ -747,8 +750,13 @@
 	function _scaling ( /*[Object] event*/ e ) {
 		var activeObject = cnv.getActiveObject(),
 		scale = activeObject.get('scaleY') * 100;
-		// activeObject.lockMovementX = true;
-		// activeObject.lockMovementY = true;
+		if ( scale > 500 ) {
+			activeObject.scale(5);
+			activeObject.left = activeObject.lastGoodLeft;
+    	activeObject.top = activeObject.lastGoodTop;
+		}
+		activeObject.lastGoodTop = activeObject.top;
+  	activeObject.lastGoodLeft = activeObject.left;
 		if ( is_text(activeObject) ) {
 			editTextScale.set( scale );
 			window.tmpTextProps && window.tmpTextProps.setNEW( 'scale', scale );
@@ -783,19 +791,16 @@
 				return this[key];
 			}
 		};
-		var activeObject = cnv.getActiveObject(),
-		isText = is_text(activeObject);
-		DEBUG && console.log('Active object:', activeObject);
 
-		if ( isText ) {
+		if ( is_text(this) ) {
 			openEditTextBar();
 			var top, left, text, fontFamily, scale, angle, fontWeight, fontStyle, textAlign, fill, OLDprops = {}, NEWprops = {};
 
-			top = activeObject.get('top');
-			left = activeObject.get('left');
+			top = this.get('top');
+			left = this.get('left');
 
-			if ( activeObject.text ) {
-				text = activeObject.text;
+			if ( this.text ) {
+				text = this.text;
 				textarea.value = text;
 			}
 			else {
@@ -803,8 +808,8 @@
 				textarea.value = text;
 			}
 
-			if ( activeObject.fill ) {
-				fill = activeObject.fill;
+			if ( this.fill ) {
+				fill = this.fill;
 				editTextColor.value = fill;
 				(_editTextColor.bind(editTextColor))();
 			}
@@ -814,7 +819,7 @@
 				(_editTextColor.bind(editTextColor))();
 			}
 
-			fontWeight = activeObject.get('fontWeight');
+			fontWeight = this.get('fontWeight');
 			if ( 'bold' === fontWeight ) {
 				editTextFontWeight.checked = true;
 				editTextCheckboxActivate.call(editTextFontWeight);
@@ -824,7 +829,7 @@
 				editTextCheckboxDeactivate.call(editTextFontWeight);
 			}
 
-			fontStyle = activeObject.get('fontStyle');
+			fontStyle = this.get('fontStyle');
 			if ( 'italic' === fontStyle ) {
 				editTextFontStyle.checked = true;
 				editTextCheckboxActivate.call(editTextFontStyle);
@@ -834,8 +839,8 @@
 				editTextCheckboxDeactivate.call(editTextFontStyle);
 			}
 
-			textAlign = activeObject.get('textAlign');
-			if ( 'center' === activeObject.get('textAlign') ) {
+			textAlign = this.get('textAlign');
+			if ( 'center' === this.get('textAlign') ) {
 				editTextAlign.checked = true;
 				editTextCheckboxActivate.call(editTextAlign);
 			}
@@ -844,19 +849,19 @@
 				editTextCheckboxDeactivate.call(editTextAlign);
 			}
 
-			fontFamily = activeObject.get('fontFamily');
+			fontFamily = this.get('fontFamily');
 			document.querySelector('[data-font="' + fontFamily + '"]').click();
 
-			scale = activeObject.get('scaleY') * 100;
+			scale = this.get('scaleY') * 100;
 			editTextScale.set( scale );
 
-			angle = activeObject.get('angle');
+			angle = this.get('angle');
 			editTextRotate.set( angle );
 
 			OLDprops = {
 				top: top,
 				left: left,
-				target: activeObject,
+				target: this,
 				text: text,
 				fontFamily: fontFamily,
 				scale: scale,
@@ -870,7 +875,7 @@
 			NEWprops = {
 				top: top,
 				left: left,
-				target: activeObject,
+				target: this,
 				text: text,
 				fontFamily: fontFamily,
 				scale: scale,
@@ -884,8 +889,8 @@
 			window.tmpTextProps = new TempTextProps( OLDprops, NEWprops );
 		}
 		else {
-			editImageScale.set( activeObject.get('scaleY') * 100 );
-			editImageRotate.set( activeObject.get('angle') );
+			editImageScale.set( this.get('scaleY') * 100 );
+			editImageRotate.set( this.get('angle') );
 			closeEditTextBar();
 		}
 	}
@@ -1575,48 +1580,20 @@
 			.toPng(cnvPlace)
 			.then(function(dataUrl){
 				temporaryImage.src = dataUrl;
+				return new Promise(function(resolve,reject) {
+					temporaryImage.onload = function() {
+						DEBUG && console.log("resolved");
+						resolve();
+					}
+				});
 			})
 			.then(function(){
 				var cfx = fx.canvas();
 				var texture = cfx.texture(temporaryImage);
-
-				var perspectiveProp = {
-					old: [0,0,1009,0,0,799,1009,799],
-					new: [300,300,709,300,0,799,1009,799]
-				};
-				perspectiveProp.new[0] = perspectiveProp.old[0] + x;
-				perspectiveProp.new[1] = perspectiveProp.old[1] + y;
-				perspectiveProp.new[2] = perspectiveProp.old[2] - x;
-				perspectiveProp.new[3] = perspectiveProp.old[3] + y;
-				perspectiveProp.new[4] = perspectiveProp.old[4] - x / 1.5;
-				perspectiveProp.new[5] = perspectiveProp.old[5] - y / 1.5;
-				perspectiveProp.new[6] = perspectiveProp.old[6] + x / 1.5;
-				perspectiveProp.new[7] = perspectiveProp.old[7] - y / 1.5;
-				cfx
-				.draw(texture)
-				.perspective(
-					[
-						perspectiveProp.old[0],
-						perspectiveProp.old[1],
-						perspectiveProp.old[2],
-						perspectiveProp.old[3],
-						perspectiveProp.old[4],
-						perspectiveProp.old[5],
-						perspectiveProp.old[6],
-						perspectiveProp.old[7]
-					],
-					[
-						perspectiveProp.new[0],
-						perspectiveProp.new[1],
-						perspectiveProp.new[2],
-						perspectiveProp.new[3],
-						perspectiveProp.new[4],
-						perspectiveProp.new[5],
-						perspectiveProp.new[6],
-						perspectiveProp.new[7]
-					]
-				)
-				.update();
+				cfx.draw(texture).perspective(
+					[0, 0, 1009, 0, 0, 799, 1009, 799],
+					[0 + x, 0 + y, 1009 - x, 0 + y, 0 - x / 1.5, 799 - y / 1.5, 1009 + x / 1.5, 799 - y / 1.5],
+				).update();
 				temporaryImage.src = cfx.toDataURL('image/png');
 				spineDisplay( 'block' );
 
@@ -1637,6 +1614,22 @@
 			callback();
 		}
 	};
+
+	function setDefaultPaletteColors () {
+		var tmp_target = false;
+		for (var key in defaultColors) {
+			tmp_target = defaultColors.targets[key];
+			currentColor[key] = defaultColors[key];
+			currentColor[key + ' HEX'] = palette[defaultColors[key]];
+			if ( tmp_target ) {
+				tmp_target.classList.remove(tmp_target.classList[tmp_target.classList.length - 1]);
+				tmp_target.classList.add(defaultColors[key]);
+			}
+			tmp_target = false;
+		}
+		overlay['middle'].object.set({fill: defaultColors['Back cover HEX']});
+		cnv.renderAll();
+	}
 
 	// if DEBUG is active:
 	//  - added state control buttons
