@@ -48,7 +48,10 @@
 	editTextFontWeight = d.querySelector('#edit-font-weight'),
 	editTextFontStyle = d.querySelector('#edit-font-style'),
 	editTextAlign = d.querySelector('#edit-font-center'),
-	editTextColor = d.querySelector('#edit-color');
+	editTextColor = d.querySelector('#edit-color'),
+	sizesError = d.querySelector('#sizes-error');
+
+	var imageMaxSizes = { w: 1920, h: 1080, timeout: 3 }; // in seconds
 
 	var cnv = window._canvas = new fabric.Canvas('our-canvas', {
 		selection: false,
@@ -482,69 +485,77 @@
 						minScaleLimit: 0.1
 					});
 
-					if ( tempImg.width > canvasWidth || tempImg.height > canvasHeight ) {
-						var scaleX = canvasWidth / tempImg.width,
-						scaleY = canvasHeight / tempImg.height;
-
-						scale = ( scaleX > scaleY )? scaleY: scaleX;
-						image.set({
-							scaleY: scale * 0.8,
-							scaleX: scale * 0.8,
-						});
+					if ( tempImg.width > imageMaxSizes.w || tempImg.height > imageMaxSizes.h ) {
+						sizesError && sizesError.classList.add('show');
+						sizesError && setTimeout(function(){
+							sizesError.classList.remove('show');
+						}, imageMaxSizes.timeout * 1000);
 					}
+					else {
+						if ( tempImg.width > canvasWidth || tempImg.height > canvasHeight ) {
+							var scaleX = canvasWidth / tempImg.width,
+							scaleY = canvasHeight / tempImg.height;
 
-					image.setControlsVisibility({'mr': false, 'ml': false, 'mt': false, 'mb': false});
-
-					image.on('deselected', _editTextBlockApply.bind(cnv));
-					image.on('selected', _selected);
-
-					cnv.centerObject(image);
-					cnv.add(image).setActiveObject(image);
-					window.$imageObjects.push(image);
-
-					setObjectsOrder();
-					cnv.renderAll();
-
-					image.baseTop = image.top;
-					image.baseLeft = image.left;
-					image.baseScale = image.scaleX;
-
-					// base size parts
-					image.size = {
-						width: image.width,
-						height: image.height,
-						conversion: function () {
-							var k = canvasWidth / defaultCanvasWidth;
-							image.width = this.width * k;
-							image.height = this.height * k;
+							scale = ( scaleX > scaleY )? scaleY: scaleX;
+							image.set({
+								scaleY: scale * 0.8,
+								scaleX: scale * 0.8,
+							});
 						}
-					};
 
-					// base position parts
-					image.position = {
-						// top
-						overlayOffsetY: overlay['top'].height(cnv.height),
-						canvasOffsetY: image.top - overlay['top'].height(cnv.height),
-						// left
-						overlayOffsetX: overlay['left'].width(cnv.width),
-						canvasOffsetX: image.left - overlay['left'].width(cnv.width),
-						scaleOffsetX: function (scale) {
-							this.canvasOffsetX = this.canvasOffsetX * scale;
-						},
-						scaleOffsetY: function (scale) {
-							this.canvasOffsetY = this.canvasOffsetY * scale;
-						},
-						conversionOffsetX: function () {
-							this.canvasOffsetX = image.left - overlay['left'].width(cnv.width);
-						},
-						conversionOffsetY: function () {
-							this.canvasOffsetY = image.top - overlay['top'].height(cnv.height);
-						},
-						conversionOverlayOffset: function () {
-							this.overlayOffsetY = overlay['top'].height(cnv.height);
-							this.overlayOffsetX = overlay['left'].width(cnv.width);
-						}
-					};
+						image.setControlsVisibility({'mr': false, 'ml': false, 'mt': false, 'mb': false});
+
+						image.on('deselected', _editTextBlockApply.bind(cnv));
+						image.on('selected', _selected);
+
+						cnv.centerObject(image);
+						cnv.add(image).setActiveObject(image);
+						window.$imageObjects.push(image);
+
+						setObjectsOrder();
+						cnv.renderAll();
+
+						image.baseTop = image.top;
+						image.baseLeft = image.left;
+						image.baseScale = image.scaleX;
+
+						// base size parts
+						image.size = {
+							width: image.width,
+							height: image.height,
+							conversion: function () {
+								var k = canvasWidth / defaultCanvasWidth;
+								image.width = this.width * k;
+								image.height = this.height * k;
+							}
+						};
+
+						// base position parts
+						image.position = {
+							// top
+							overlayOffsetY: overlay['top'].height(cnv.height),
+							canvasOffsetY: image.top - overlay['top'].height(cnv.height),
+							// left
+							overlayOffsetX: overlay['left'].width(cnv.width),
+							canvasOffsetX: image.left - overlay['left'].width(cnv.width),
+							scaleOffsetX: function (scale) {
+								this.canvasOffsetX = this.canvasOffsetX * scale;
+							},
+							scaleOffsetY: function (scale) {
+								this.canvasOffsetY = this.canvasOffsetY * scale;
+							},
+							conversionOffsetX: function () {
+								this.canvasOffsetX = image.left - overlay['left'].width(cnv.width);
+							},
+							conversionOffsetY: function () {
+								this.canvasOffsetY = image.top - overlay['top'].height(cnv.height);
+							},
+							conversionOverlayOffset: function () {
+								this.overlayOffsetY = overlay['top'].height(cnv.height);
+								this.overlayOffsetX = overlay['left'].width(cnv.width);
+							}
+						};
+					}
 				};
 			};
 		} else {
