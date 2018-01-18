@@ -468,23 +468,6 @@
 				tempImg.src = e.target.result;
 
 				tempImg.onload = function() {
-					var scale, rotate;
-					scale = editImageScale.get();
-					rotate = editImageRotate.get();
-					rotate = Number(rotate.substr(0, rotate.length - 12));
-
-					image = new fabric.Image(tempImg);
-					image.set({
-						left: 0,
-						top: 0,
-						angle: rotate || 0,
-						scaleY: (scale / 100) || 1,
-						scaleX: (scale / 100) || 1,
-						originX: 'center',
-						originY: 'center',
-						minScaleLimit: 0.1
-					});
-
 					if ( tempImg.width > imageMaxSizes.w || tempImg.height > imageMaxSizes.h ) {
 						sizesError && sizesError.classList.add('show');
 						sizesError && setTimeout(function(){
@@ -492,6 +475,28 @@
 						}, imageMaxSizes.timeout * 1000);
 					}
 					else {
+						var scale, rotate;
+						scale = editImageScale.get();
+						rotate = editImageRotate.get();
+						rotate = Number(rotate.substr(0, rotate.length - 12));
+
+						if ($imageObjects[0]) {
+							cnv.remove($imageObjects[0]);
+							cnv.remove($imageObjects[0]);
+							$imageObjects = [];
+						}
+						image = new fabric.Image(tempImg);
+						image.set({
+							left: 0,
+							top: 0,
+							angle: rotate || 0,
+							scaleY: (scale / 100) || 1,
+							scaleX: (scale / 100) || 1,
+							originX: 'center',
+							originY: 'center',
+							minScaleLimit: 0.1
+						});
+
 						if ( tempImg.width > canvasWidth || tempImg.height > canvasHeight ) {
 							var scaleX = canvasWidth / tempImg.width,
 							scaleY = canvasHeight / tempImg.height;
